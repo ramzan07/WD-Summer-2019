@@ -1,5 +1,5 @@
 <?php
- 
+
 /*
   |--------------------------------------------------------------------------
   | API Routes
@@ -12,3 +12,4 @@
  */
 
 Route::get('feeds/get', 'ApiFeedController@index');
+Route::get('feeds/channels', 'ApiFeedController@channels');

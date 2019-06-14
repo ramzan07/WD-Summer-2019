@@ -75,12 +75,26 @@
                 <strong>Danger!</strong> {{Session::get('error_message')}}
             </div>
             @endif
-            <div class="clearfix">
-                <a class="btn btn-primary float-right" href="{{route('refreshFeed')}}">Refresh Feed &rarr;</a>
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <a class="btn btn-primary" href="{{route('refreshFeed')}}">Refresh Feed &rarr;</a>
+                </div>
+            </div>
+            <div class="row" style=" padding-top: 10px;">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        <option>Select a channel</option>
+                        @foreach($feed_channel as $channel)
+                        <option>{{$channel['channel_name']}}</option>
+                        @endforeach
+                    </select>
+                    <br>
+                    <a class="btn btn-primary"  style=" border-radius: 2px;"href="#">Search</a>
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
-                    @foreach($data['data'] as $item)
+                    @foreach($feed_posts as $item)
                     <div class="post-preview">
                         <a href="post.html">
                             <h2 class="post-title">

@@ -135,9 +135,16 @@ class FeedController extends Controller {
      * return type view
      */
     public function index() {
-        $json = file_get_contents('http://localhost/wb-summar/api/feeds/get');
-        $data = json_decode($json, TRUE);
-        return view('welcome', compact('data'));
+        $post = file_get_contents('http://localhost/wb-summar/api/feeds/get');
+        $channel = file_get_contents('http://localhost/wb-summar/api/feeds/channels');
+
+        $data['posts'] = json_decode($post, TRUE);
+        $data['channels'] = json_decode($channel, TRUE);
+
+        $feed_posts = $data['posts']['data'];
+        $feed_channel = $data['channels']['data'];
+
+        return view('welcome', compact('feed_posts', 'feed_channel'));
     }
 
 }

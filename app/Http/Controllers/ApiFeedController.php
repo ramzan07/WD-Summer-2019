@@ -20,12 +20,13 @@ class ApiFeedController extends Controller {
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
+     * channels method 
+     * responsible for getting channels
      * @return \Illuminate\Http\Response
      */
-    public function create() {
-        //
+    public function channels() {
+        $channels = \App\RssChannel::all();
+        return $this->jsonSuccessResponse('Process is processed success', $channels);
     }
 
     /**
