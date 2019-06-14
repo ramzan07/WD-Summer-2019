@@ -26,16 +26,21 @@ class FeedController extends Controller {
         if (!$flag) {
             return redirect()->back()->with('warning_message', 'Update request time is not proper');
         }
-                
-        $xmlStr = file_get_contents('https://foreignpolicy.com/feed');
-        $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);
-        $json = json_encode($xml);
-        $array = json_decode($json, TRUE);
-        $channel = \App\RssChannel::where('channel_source', $array['channel']['link'])->first();
-        if (empty($channel)) {
-            $channel = $this->saveNewChannel($array['channel']);
+        $channels = \App\RssChannel::all();
+
+        foreach ($channels as $channel) {
+            $xmlStr = file_get_contents($channel->channel_source);
+            $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);
+            $json = json_encode($xml);
+            $array = json_decode($json, TRUE);
+            $channel = \App\RssChannel::where('channel_source', $array['channel']['link'])->first();
+            if (empty($channel)) {
+                $channel = $this->saveNewChannel($array['channel']);
+            }
+            $this->processRssFeed($array, $channel);
         }
-        return $this->processRssFeed($array, $channel);
+
+        return redirect()->route('home')->with('success_message', 'Feed has been update successfully');
     }
 
     /**
@@ -97,8 +102,6 @@ class FeedController extends Controller {
             }
         }
         $settings = \DB::table('settings')->where('type', 'update')->update(['time' => date('Y-m-d H:i:s')]);
-
-        return redirect()->route('home')->with('success_message', 'Feed has been update successfully');
     }
 
     /**
@@ -151,7 +154,7 @@ class FeedController extends Controller {
         $data['channels'] = json_decode($channel, TRUE);
         $feed_posts = $data['posts']['data'];
         $feed_channel = $data['channels']['data'];
-        
+
         return view('welcome', compact('feed_posts', 'feed_channel'));
     }
 
