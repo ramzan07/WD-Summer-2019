@@ -15,5 +15,6 @@
 //    return view('welcome');
 //});
 
-Route::get('/', 'FeedController@index')->name('home');
+Route::get('/{channel_id?}', 'FeedController@index')->name('home');
 Route::get('feed/refresh', 'FeedController@refresh')->name('refreshFeed');
+Route::get('feed/post/{id}', 'FeedController@show')->name('postDetails');

@@ -18,7 +18,7 @@ class RssPost extends Model {
      *
      * @var array
      */
-    protected $fillable = ['channel_id', 'title', 'link', 'description', 'pubDate'];
+    protected $fillable = ['channel_id', 'title', 'link', 'description', 'pubDate', 'image'];
 
     /**
      * Indicates if the model should be timestamped.
@@ -26,6 +26,5 @@ class RssPost extends Model {
      * @var bool
      */
     public $timestamps = true;
-    
 
 }

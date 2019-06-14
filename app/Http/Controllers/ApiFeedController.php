@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class ApiFeedController extends Controller {
 
@@ -15,7 +16,14 @@ class ApiFeedController extends Controller {
      */
     public function index() {
 
-        $feeds = \App\RssPost::all();
+        $request_params = Input::all();
+
+        if (isset($request_params['id'])) {
+            $feeds = \App\RssPost::where('channel_id', $request_params['id'])->get();
+        } else {
+            $feeds = \App\RssPost::all();
+        }
+
         return $this->jsonSuccessResponse('Process is processed success', $feeds);
     }
 

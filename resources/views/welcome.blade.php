@@ -80,20 +80,23 @@
                     <a class="btn btn-primary" href="{{route('refreshFeed')}}">Refresh Feed &rarr;</a>
                 </div>
             </div>
-            <div class="row" style=" padding-top: 10px;">
-                <div class="col-lg-8 col-md-10 mx-auto">
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>Select a channel</option>
-                        @foreach($feed_channel as $channel)
-                        <option>{{$channel['channel_name']}}</option>
-                        @endforeach
-                    </select>
-                    <br>
-                    <a class="btn btn-primary"  style=" border-radius: 2px;"href="#">Search</a>
+            <form action="{{route('home')}}" method="GET">
+                <div class="row" style=" padding-top: 10px;">
+                    <div class="col-lg-8 col-md-10 mx-auto">
+                        <select name="channel_id" class="form-control" id="exampleFormControlSelect1">
+                            <option value="">Select a channel</option>
+                            @foreach($feed_channel as $channel)
+                            <option value="{{$channel['id']}}">{{$channel['channel_name']}}</option>
+                            @endforeach
+                        </select>
+                        <br>
+                        <input class="btn btn-primary"  type="submit" value="Search">
+                    </div>
                 </div>
-            </div>
+            </form>
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
+                    @if(!empty($feed_posts))
                     @foreach($feed_posts as $item)
                     <div class="post-preview">
                         <a href="post.html">
@@ -109,19 +112,19 @@
                         </p>
                         <p class="post-meta">Posted on {{date('Y-m-d H:i:s a', strtotime($item['pubDate']))}}
                         </p>
+                        <a class="btn btn-primary"  style=" border-radius: 2px;"href="{{route('postDetails', ['id' => $item['id']])}}">View &rarr;</a>
                     </div>
                     <hr>
                     @endforeach
-                    <!-- Pager -->
-                    <div class="clearfix">
-                        <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-                    </div>
+                    @else
+                    <div class="alert alert-warning">
+                        <strong>Warning!</strong> No Search Record found 
+                    </div> 
+                    @endif
                 </div>
             </div>
         </div>
-
         <hr>
-
         <!-- Footer -->
         <footer>
             <div class="container">

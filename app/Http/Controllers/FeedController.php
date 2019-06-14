@@ -9,6 +9,7 @@ namespace App\Http\Controllers;
  */
 
 use DateTime;
+use Illuminate\Support\Facades\Input;
 
 class FeedController extends Controller {
 
@@ -110,6 +111,7 @@ class FeedController extends Controller {
         $rss['title'] = $item['title'];
         $rss['description'] = $item['description'];
         $rss['link'] = $item['link'];
+        $rss['image'] = $item['enclosure']['@attributes']['url'];
         $rss['pubDate'] = date('Y-m-d H:i:s', strtotime($item['pubDate']));
         \App\RssPost::create($rss);
     }
@@ -135,16 +137,27 @@ class FeedController extends Controller {
      * return type view
      */
     public function index() {
-        $post = file_get_contents('http://localhost/wb-summar/api/feeds/get');
-        $channel = file_get_contents('http://localhost/wb-summar/api/feeds/channels');
 
+        $request_params = Input::all();
+
+        if (!empty($request_params) && isset($request_params['channel_id'])) {
+            $post = file_get_contents('http://localhost/wb-summar/api/feeds/get?id=' . $request_params['channel_id']);
+        } else {
+            $post = file_get_contents('http://localhost/wb-summar/api/feeds/get');
+        }
+        $channel = file_get_contents('http://localhost/wb-summar/api/feeds/channels');
         $data['posts'] = json_decode($post, TRUE);
         $data['channels'] = json_decode($channel, TRUE);
-
         $feed_posts = $data['posts']['data'];
         $feed_channel = $data['channels']['data'];
-
+        
         return view('welcome', compact('feed_posts', 'feed_channel'));
+    }
+
+    public function show($id) {
+
+        $post = \App\RssPost::where('id', $id)->first();
+        return View('post', compact('post'));
     }
 
 }
