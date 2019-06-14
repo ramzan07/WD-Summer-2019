@@ -8,6 +8,8 @@ namespace App\Http\Controllers;
  * and open the template in the editor.
  */
 
+use DateTime;
+
 class FeedController extends Controller {
 
     /**
@@ -17,16 +19,40 @@ class FeedController extends Controller {
      */
     public function refresh() {
 
+        $settings = \DB::table('settings')->where('type', 'update')->first();
+        $flag = $this->calculateTimeDiffToUpdate($settings->time);
+
+        if (!$flag) {
+            return redirect()->back()->with('warning_message', 'Update request time is not proper');
+        }
         $xmlStr = file_get_contents('https://foreignpolicy.com/feed');
         $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);
         $json = json_encode($xml);
         $array = json_decode($json, TRUE);
         $channel = \App\RssChannel::where('channel_source', $array['channel']['link'])->first();
-
         if (empty($channel)) {
             $channel = $this->saveNewChannel($array['channel']);
         }
         return $this->processRssFeed($array, $channel);
+    }
+
+    /**
+     * calculateTimeDiff method 
+     * responsible for telling system to updated feed or not
+     * @param type $time
+     * @return boolean
+     */
+    public function calculateTimeDiffToUpdate($time) {
+        $start_date = new DateTime($time);
+        $since_start = $start_date->diff(new DateTime(date('Y-m-d H:i:s')));
+        $minutes = $since_start->days * 24 * 60;
+        $minutes += $since_start->h * 60;
+        $minutes += $since_start->i;
+
+        if ($minutes < 10) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -54,21 +80,53 @@ class FeedController extends Controller {
      * @return type
      */
     public function processRssFeed($data, $channel) {
-        if (!empty($data)) {
-            foreach ($data['channel']['item'] as $key => $item) {
-                $rss['channel_id'] = $channel->id;
-                $rss['title'] = $item['title'];
-                $rss['description'] = $item['description'];
-                $rss['link'] = $item['link'];
-                $rss['pubDate'] = date('Y-m-d H:i:s', strtotime($item['pubDate']));
-                $post = \App\RssPost::where('link', $item['link'])->first();
-                if (empty($post)) {
-                    $post = \App\RssPost::create($rss);
+
+        foreach ($data['channel']['item'] as $item) {
+            $post = \App\RssPost::where('link', $item['link'])->first();
+            if (!empty($post)) {
+                $settings = \DB::table('settings')->where('type', 'delete')->first();
+                $time = $this->calculateTimeDiffToDelete($post->created_at);
+                if ($time > $settings->time) {
+                    $post->delete();
                 }
             }
+            if (empty($post)) {
+                $this->createPost($item, $channel);
+            }
         }
+        $settings = \DB::table('settings')->where('type', 'update')->update(['time' => date('Y-m-d H:i:s')]);
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success_message', 'Feed has been update successfully');
+    }
+
+    /**
+     * createPost method
+     * responsible for creating post
+     * @param type $item
+     * @param type $channel
+     */
+    public function createPost($item, $channel) {
+        $rss['channel_id'] = $channel->id;
+        $rss['title'] = $item['title'];
+        $rss['description'] = $item['description'];
+        $rss['link'] = $item['link'];
+        $rss['pubDate'] = date('Y-m-d H:i:s', strtotime($item['pubDate']));
+        \App\RssPost::create($rss);
+    }
+
+    /**
+     * calculateTimeDiffToDelete method
+     * responsible for time calculation to delete
+     * @param type $time
+     * @return type
+     */
+    public function calculateTimeDiffToDelete($time) {
+        $start_date = new DateTime($time);
+        $since_start = $start_date->diff(new DateTime(date('Y-m-d H:i:s')));
+        $minutes = $since_start->days * 24 * 60;
+        $minutes += $since_start->h * 60;
+        $minutes += $since_start->i;
+        return $minutes;
     }
 
     /**

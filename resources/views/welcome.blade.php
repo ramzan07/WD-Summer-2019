@@ -60,6 +60,24 @@
 
         <!-- Main Content -->
         <div class="container">
+            @if(Session::has('success_message'))
+            <div class="alert alert-success">
+                <strong>Success!</strong> {{Session::get('success_message')}}
+            </div>
+            @endif
+            @if(Session::has('warning_message'))
+            <div class="alert alert-warning">
+                <strong>Warning!</strong> {{Session::get('warning_message')}}
+            </div>   
+            @endif
+            @if(Session::has('error_message'))
+            <div class="alert alert-danger">
+                <strong>Danger!</strong> {{Session::get('error_message')}}
+            </div>
+            @endif
+            <div class="clearfix">
+                <a class="btn btn-primary float-right" href="{{route('refreshFeed')}}">Refresh Feed &rarr;</a>
+            </div>
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
                     @foreach($data['data'] as $item)

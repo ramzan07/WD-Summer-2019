@@ -16,4 +16,4 @@
 //});
 
 Route::get('/', 'FeedController@index')->name('home');
-Route::get('feed/refresh', 'FeedController@refresh');
+Route::get('feed/refresh', 'FeedController@refresh')->name('refreshFeed');
