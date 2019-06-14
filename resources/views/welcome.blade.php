@@ -100,14 +100,12 @@
                     @if(!empty($feed_posts))
                     @foreach($feed_posts as $item)
                     <div class="post-preview">
-                        <a href="post.html">
                             <h2 class="post-title">
                                 {{$item['title']}}
                             </h2>
-                            <h3 class="post-subtitle">
-                                {{$item['description']}}
-                            </h3>
-                        </a>
+                            <p class="post-subtitle">
+                                {{strip_tags($item['description'])}}
+                            </p>
                         <p class="post-meta">Link : 
                             <a style=" font-size: 12px;" href="{{$item['link']}}">{{$item['link']}}</a>
                         </p>
