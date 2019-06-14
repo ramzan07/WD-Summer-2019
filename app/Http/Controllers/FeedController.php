@@ -30,7 +30,7 @@ class FeedController extends Controller {
 
         foreach ($channels as $channel) {
             $xmlStr = file_get_contents($channel->channel_source);
-            $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);
+            $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);           
             $json = json_encode($xml);
             $array = json_decode($json, TRUE);
             $channel = \App\RssChannel::where('channel_source', $array['channel']['link'])->first();
