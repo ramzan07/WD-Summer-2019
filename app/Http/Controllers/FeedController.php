@@ -26,6 +26,7 @@ class FeedController extends Controller {
         if (!$flag) {
             return redirect()->back()->with('warning_message', 'Update request time is not proper');
         }
+                
         $xmlStr = file_get_contents('https://foreignpolicy.com/feed');
         $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);
         $json = json_encode($xml);
