@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2019 at 08:08 AM
+-- Generation Time: Jun 14, 2019 at 06:48 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -67,7 +67,6 @@ CREATE TABLE `rss_posts` (
 --
 
 INSERT INTO `rss_posts` (`id`, `channel_id`, `title`, `link`, `description`, `pubDate`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Nuclear Disarmament’s Lessons for Climate Change.', 'https://foreignpolicy.com/2019/06/12/nuclear-disarmaments-lessons-for-climate-change/', 'If we can ban nukes, we can ban carbon emissions. Here’s how.', '2019-06-12 17:06:54', '2019-06-13 01:03:52', '2019-06-13 01:03:52'),
 (2, 1, 'Infuriating Congress, Trump Administration Keeps Pushing for Saudi Arms Sales', 'https://foreignpolicy.com/2019/06/12/infuriating-congress-trump-administration-pompeo-pushes-new-saudi-arms-sales-iran-khashoggi-hearing-oversight-state-department/', 'Lawmakers accused the State Department of concocting a “phony emergency.”', '2019-06-12 16:37:28', '2019-06-13 01:03:52', '2019-06-13 01:03:52'),
 (3, 1, 'Britain Failed Hong Kong', 'https://foreignpolicy.com/2019/06/12/britain-failed-hong-kong/', 'The U.K. owes Hong Kongers fighting for democracy a moral debt.', '2019-06-12 14:53:42', '2019-06-13 01:03:52', '2019-06-13 01:03:52'),
 (4, 1, '‘Fort Trump’ for Poland? Not Quite.', 'https://foreignpolicy.com/2019/06/12/fort-trump-for-poland-not-quite/', 'Trump will send 1,000 noncombat troops to Eastern Europe amid signs of a Russian buildup.', '2019-06-12 13:47:42', '2019-06-13 01:03:52', '2019-06-13 01:03:52'),
@@ -91,7 +90,43 @@ INSERT INTO `rss_posts` (`id`, `channel_id`, `title`, `link`, `description`, `pu
 (22, 1, 'Pentagon Warns Turkey of Sanctions Over Russian Missile System', 'https://foreignpolicy.com/2019/06/10/pentagon-warns-turkey-of-sanctions-over-russian-missile-system/', 'Decision to start ‘unwinding’ Turkey from the F-35 fighter jet program is the latest sign of strained ties between the two nations.  ', '2019-06-10 07:30:19', '2019-06-13 01:03:52', '2019-06-13 01:03:52'),
 (23, 1, 'Hong Kong’s Last Stand', 'https://foreignpolicy.com/2019/06/10/hong-kongs-last-stand-extradition-trump-mexico-iran/', 'Plus: Mexico faces new pressure on immigration, Germany meets with Iran, and what to watch in the world this week.', '2019-06-10 03:41:09', '2019-06-13 01:03:52', '2019-06-13 01:03:52'),
 (24, 1, 'When Coal Comes to Paradise', 'https://foreignpolicy.com/2019/06/09/when-coal-came-to-paradise-china-coal-kenya-lamu-pollution-africa-chinese-industry-bri/', 'As China pushes clean energy policies at home, it is exporting its high-pollution coal industry to pristine places like Kenya’s Lamu Island—with Nairobi’s seal of approval. Local residents fear it will destroy the environment they depend on.', '2019-06-09 03:48:24', '2019-06-13 01:03:52', '2019-06-13 01:03:52'),
-(25, 1, 'Kazakhstan’s Fake Vote Might Wake Up Civil Society', 'https://foreignpolicy.com/2019/06/08/kazakhstans-fake-vote-might-help-bring-real-democracy/', 'The nominal resignation of a longtime autocrat has sparked new hopes.', '2019-06-08 08:00:58', '2019-06-13 01:03:52', '2019-06-13 01:03:52');
+(25, 1, 'Kazakhstan’s Fake Vote Might Wake Up Civil Society', 'https://foreignpolicy.com/2019/06/08/kazakhstans-fake-vote-might-help-bring-real-democracy/', 'The nominal resignation of a longtime autocrat has sparked new hopes.', '2019-06-08 08:00:58', '2019-06-13 01:03:52', '2019-06-13 01:03:52'),
+(26, 1, 'Xinjiang Visit by U.N. Counterterrorism Official Provokes Outcry', 'https://foreignpolicy.com/2019/06/13/xinjiang-visit-by-u-n-counterterrorism-official-provokes-protest-human-rights-china-uighurs-internment-camps-east-asia-united-nations/', 'Rights activists say upcoming trip by U.N. diplomat could reinforce Beijing’s line that Uighur activists are terrorists.', '2019-06-13 16:54:43', '2019-06-13 23:25:33', '2019-06-13 23:25:33'),
+(27, 1, 'Top WMD Official Quietly Leaves Pentagon', 'https://foreignpolicy.com/2019/06/13/top-wmd-official-quietly-leaves-pentagon/', 'Guy Roberts’s abrupt departure in April comes amid a long exodus of senior officials under acting Secretary Patrick Shanahan. ', '2019-06-13 16:00:42', '2019-06-13 23:25:33', '2019-06-13 23:25:33'),
+(28, 1, 'U.S. Blames Iran for Latest Tanker Attack', 'https://foreignpolicy.com/2019/06/13/us-blames-iran-for-latest-tanker-attack-strait-of-hormuz-gulf-of-iran-middle-east-pompeo-trump-tehran-tensions/', 'Pompeo says no other country could have orchestrated the explosions with “such a high degree of sophistication.” ', '2019-06-13 15:27:45', '2019-06-13 23:25:33', '2019-06-13 23:25:33'),
+(29, 1, 'Modi’s Nationalism Is Spoiling His Global Brand', 'https://foreignpolicy.com/2019/06/13/modis-nationalism-is-spoiling-his-global-brand/', 'India’s leader has to mix a muscular foreign policy with a softer touch.', '2019-06-13 15:08:44', '2019-06-13 23:25:33', '2019-06-13 23:25:33'),
+(30, 1, 'What Trump Promised Duda', 'https://foreignpolicy.com/2019/06/13/what-trump-promised-duda/', 'A transcript of the U.S. and Polish leaders’ remarks in the Rose Garden.', '2019-06-13 12:25:29', '2019-06-13 23:25:33', '2019-06-13 23:25:33'),
+(31, 1, 'China Is Bluffing in the Trade War', 'https://foreignpolicy.com/2019/06/13/china-is-bluffing-in-the-trade-war/', 'Chinese leaders say they can effectively retaliate against Trump’s tariffs. They’re wrong.', '2019-06-13 12:21:01', '2019-06-13 23:25:33', '2019-06-13 23:25:33'),
+(32, 1, 'Britain’s Tories Bravely Put Party Before Country', 'https://foreignpolicy.com/2019/06/13/britains-tories-bravely-put-party-before-country/', 'Internal fights among the Conservatives have wrecked the U.K.—and Labour isn’t much better.', '2019-06-13 11:21:48', '2019-06-13 23:25:33', '2019-06-13 23:25:33'),
+(33, 1, 'Mohammed bin Salman’s Fake Anti-Extremist Campaign', 'https://foreignpolicy.com/2019/06/13/mohammed-bin-salmans-fake-anti-extremist-campaign/', 'The Saudi crown prince vowed to crack down on radical clerics—but the victims have mostly been advocates for moderate Islam.', '2019-06-13 11:20:15', '2019-06-13 23:25:33', '2019-06-13 23:25:33'),
+(34, 1, 'AI Can Thrive in Open Societies', 'https://foreignpolicy.com/2019/06/13/ai-can-thrive-in-open-societies/', 'The belief that China’s surveillance gives it an advantage is misleading—and dangerous.', '2019-06-13 10:50:02', '2019-06-13 23:25:33', '2019-06-13 23:25:33'),
+(35, 1, 'Trump’s Polish Message to NATO', 'https://foreignpolicy.com/2019/06/13/trumps-polish-message-to-nato/', 'New security agreement rewards Poland’s commitment to defense spending. ', '2019-06-13 07:38:25', '2019-06-13 23:25:33', '2019-06-13 23:25:33'),
+(36, 1, 'How Hindu Nationalism Went Mainstream', 'https://foreignpolicy.com/2019/06/13/how-hindu-nationalism-went-mainstream/', 'And what that means for Narendra Modi’s Bharatiya Janata Party', '2019-06-13 05:38:50', '2019-06-13 23:25:33', '2019-06-13 23:25:33'),
+(37, 1, 'What’s Next for Hong Kong?', 'https://foreignpolicy.com/2019/06/13/what-happens-now-in-hong-kong-protests-trump-saudi-arabia-iran-shinzo-abe/', 'Plus: U.S. lawmakers push back against Saudi arms sales, Shinzo Abe visits Iran, and the other stories we\'re following today.', '2019-06-13 05:00:50', '2019-06-13 23:25:33', '2019-06-13 23:25:33'),
+(38, 1, 'Nuclear Disarmament’s Lessons for Climate Change.', 'https://foreignpolicy.com/2019/06/12/nuclear-disarmaments-lessons-for-climate-change/', 'If we can ban nukes, we can ban carbon emissions. Here’s how.', '2019-06-12 17:06:54', '2019-06-13 23:34:35', '2019-06-13 23:34:35');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `settings`
+--
+
+CREATE TABLE `settings` (
+  `id` int(11) NOT NULL,
+  `type` enum('update','delete') NOT NULL,
+  `age` int(4) NOT NULL,
+  `time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`id`, `type`, `age`, `time`, `created_at`, `updated_at`) VALUES
+(1, 'update', 10, '2019-06-13 23:34:35', '2019-06-14 03:39:48', NULL),
+(2, 'delete', 43200, '2019-06-14 04:14:34', '2019-06-13 19:00:00', NULL);
 
 --
 -- Indexes for dumped tables
@@ -110,6 +145,12 @@ ALTER TABLE `rss_posts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -123,7 +164,13 @@ ALTER TABLE `rss_channels`
 -- AUTO_INCREMENT for table `rss_posts`
 --
 ALTER TABLE `rss_posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT for table `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
