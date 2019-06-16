@@ -83,22 +83,23 @@
                             <div class="control-group">
                                 <div class="form-group floating-label-form-group controls">
                                     <label>Channel Source</label>
-                                    <input name="url" class="form-control" placeholder="enter source of the RSS Channel" >
+                                    <input name="url" type="url"  required class="form-control" placeholder="Channel url" >
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <div class="form-group floating-label-form-group controls">
-                                    <label>Message(Optional)</label>
-                                    <textarea rows="5" class="form-control" placeholder="Message" id="message" required data-validation-required-message="Please enter a message."></textarea>
+                                    <label>Channel Name</label>
+                                    <input name="name"  required class="form-control" placeholder="Name of channel" >
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <br>
                             <div id="success"></div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary" id="sendMessageButton">Send</button>
+                                <button type="submit" class="btn btn-primary" value="save_only">Save Channel</button>
+                                <button type="submit" class="btn btn-primary" value="save_import">Save Chaneel and Get Feeds</button>
                             </div>
                         </form>
                     </div>
