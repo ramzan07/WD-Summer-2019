@@ -32,16 +32,24 @@ class ChannelController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $reques_params = $request->get('url');
-        $xmlStr = file_get_contents($reques_params);
-        $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);
-        $json = json_encode($xml);
-        $array = json_decode($json, TRUE);
-        $channel = \App\RssChannel::where('channel_source', $array['channel']['link'])->first();
-        if (empty($channel)) {
-            return $this->createNewChannel($array['channel']);
+        $channel_data['channel_source']  = $request->input('url');
+        $channel_data['channel_name']     = $request->input('name');
+
+
+        $create_channel = \App\RssChannel::firstOrCreate($channel_data);
+        if ($create_channel) {
+            return redirect()->route('home')->with('success_message', 'Channel has been created successfully.');
         }
-        return redirect()->back()->with('error_message', 'Channel has already been created');
+        //$xmlStr = file_get_contents($reques_params);
+        //$xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);
+        //$json = json_encode($xml);
+        //$array = json_decode($json, TRUE);
+        //$channel = \App\RssChannel::where('channel_source', $array['channel']['link'])->first();
+        //if (empty($channel)) {
+          //  return $this->createNewChannel($array['channel']);
+        //$create_channel = \App\RssChannel::firstOrCreate($channel_array);
+        //}
+        //return redirect()->back()->with('error_message', 'Channel has already been created');
     }
 
     /**
