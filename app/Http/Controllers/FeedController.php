@@ -33,10 +33,7 @@ class FeedController extends Controller {
             $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);           
             $json = json_encode($xml);
             $array = json_decode($json, TRUE);
-            $channel = \App\RssChannel::where('channel_source', $array['channel']['link'])->first();
-            if (empty($channel)) {
-                $channel = $this->saveNewChannel($array['channel']);
-            }
+
             $this->processRssFeed($array, $channel);
         }
 
@@ -60,22 +57,6 @@ class FeedController extends Controller {
             return false;
         }
         return true;
-    }
-
-    /**
-     * saveNewChannel method
-     * responsible for saving new channel
-     * @param type $channel
-     * @return type
-     */
-    public function saveNewChannel($channel) {
-
-        $channel_array = [];
-        $channel_array['channel_name'] = $channel['title'];
-        $channel_array['channel_source'] = $channel['link'];
-        $channel_array['channel_description'] = $channel['title'];
-
-        return \App\RssChannel::firstOrCreate($channel_array);
     }
 
     /**
@@ -111,11 +92,11 @@ class FeedController extends Controller {
      * @param type $channel
      */
     public function createPost($item, $channel) {
+
         $rss['channel_id'] = $channel->id;
         $rss['title'] = $item['title'];
         $rss['description'] = $item['description'];
         $rss['link'] = $item['link'];
-        $rss['image'] = $item['enclosure']['@attributes']['url'];
         $rss['pubDate'] = date('Y-m-d H:i:s', strtotime($item['pubDate']));
         \App\RssPost::create($rss);
     }
