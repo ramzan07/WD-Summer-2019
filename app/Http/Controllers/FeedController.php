@@ -74,7 +74,7 @@ class FeedController extends Controller {
         $channel_array['channel_name'] = $channel['title'];
         $channel_array['channel_source'] = $channel['link'];
         $channel_array['channel_description'] = $channel['title'];
-        $channel_array['channel_image'] = $channel['image'][0]['url'];
+
         return \App\RssChannel::firstOrCreate($channel_array);
     }
 
