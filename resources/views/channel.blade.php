@@ -98,8 +98,8 @@
                             <br>
                             <div id="success"></div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary" value="save_only">Save Channel</button>
-                                <button type="submit" class="btn btn-primary" value="save_import">Save Chaneel and Get Feeds</button>
+                                <button type="submit" class="btn btn-primary" name="save_only" value="save_only">Save Channel</button>
+                                <button type="submit" class="btn btn-primary" name="save_import" value="save_import">Save Chaneel and Get Feeds</button>
                             </div>
                         </form>
                     </div>
