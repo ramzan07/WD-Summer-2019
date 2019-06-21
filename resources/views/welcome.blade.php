@@ -48,16 +48,16 @@
 @section('sidebarCards')
 <div class="my-detail col"  style="margin-bottom: 0px;">
     <div class="white-spacing">
-      <i class="fa fa-code fa-2x"></i>
-      <h1 class="timer count-title count-number" data-to="100" data-speed="1500"></h2>
-      <h1>News Count</h1>
+      <i class="icon-envelope fa-2x"></i>
+      <h1 class="timer count-title count-number" data-to="{{$providersCount}}" data-speed="1500"></h2>
+      <h1>Providers</h1>
     </div>
       </div>
 <div class="my-detail col"  style="margin-bottom: 0px;">
     <div class="white-spacing">
-      <i class="fa fa-code fa-2x"></i>
-      <h1 class="timer count-title count-number" data-to="200" data-speed="1500"></h2>
-      <h1>News Count</h1>
+      <i class="icon-support fa-2x"></i>
+      <h1 class="timer count-title count-number" data-to="{{$postsCount}}" data-speed="1500"></h2>
+      <h1>Posts</h1>
     </div>
 </div>
 @endsection

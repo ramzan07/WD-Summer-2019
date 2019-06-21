@@ -136,7 +136,10 @@ class FeedController extends Controller {
         $feed_posts = $data['posts']['data'];
         $feed_channel = $data['channels']['data'];
 
-        return view('welcome', compact('feed_posts', 'feed_channel'));
+        $postsCount = count($feed_posts);
+        $providersCount = count($feed_channel);
+
+        return view('welcome', compact('feed_posts', 'feed_channel', 'postsCount', 'providersCount'));
     }
 
     public function show($id) {
