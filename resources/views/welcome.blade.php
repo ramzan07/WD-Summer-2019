@@ -165,14 +165,14 @@ jQuery(function ($) {
 <script type="text/javascript">
     function loadDatbaseDetails(id)
     {
-        $("#modal-loading").modal('show');
+        $("#preloader").modal('show');
         $.ajax({
             url: 'feed/post/'+ id,
             type: "GET",
             success: function(result) {
                 $('#tbody-data').html(result);
                 $("#modal-db-details").modal('show');
-                $("#modal-loading").modal('hide');
+                $("#preloader").modal('hide');
             }
         });
     }
@@ -263,7 +263,7 @@ jQuery(function ($) {
     </div>
 </div>
 <!---Loader -->
-<div id="modal-loading" class="modal" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-        <center><i class="fa fa-spinner fa-spin fa-2x" style="padding-top: 200px;"></i></center>
+<div class="preloader" id="preloader">
+       <div class="rounder"></div>
 </div>
 @endsection
