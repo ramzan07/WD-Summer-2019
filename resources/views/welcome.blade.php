@@ -13,7 +13,7 @@
 <script src="{{asset('public/js/counter.js')}}"></script>
 
 <script type="text/javascript">
-    function loadDatbaseDetails(id)
+    function loadPost(id)
     {
         $("#preloader").modal('show');
         $.ajax({
@@ -35,6 +35,12 @@
             return false;
         }
     });
+</script>
+
+<script type="text/javascript">
+    setTimeout(function() {
+    $('#message').fadeOut('slow');
+}, 3000); // <-- time in milliseconds
 </script>>
 
 @endsection
@@ -65,17 +71,17 @@
 
 @section('action_buttons')
 @if(Session::has('success_message'))
-    <div class="alert alert-success">
-        <strong>Success!</strong> {{Session::get('success_message')}}
+    <div class="alert alert-success" id="message">
+        <center><strong>Success!</strong> {{Session::get('success_message')}} </center>
     </div>
     @endif
     @if(Session::has('warning_message'))
-    <div class="alert alert-warning">
+    <div class="alert alert-warning" id="message">
         <strong>Warning!</strong> {{Session::get('warning_message')}}
     </div>   
     @endif
     @if(Session::has('error_message'))
-    <div class="alert alert-danger">
+    <div class="alert alert-danger" id="message">
         <strong>Danger!</strong> {{Session::get('error_message')}}
     </div>
 @endif
@@ -119,7 +125,7 @@
             <p class="post-meta">Link : 
                     <a style=" font-size: 12px;" href="{{$item['link']}}" target="_blank">{{substr($item['link'], 0, 50)}}</a>
             </p>
-            <a href="javascript:;" onclick="loadDatbaseDetails({{$item['id']}})" class="button button-style button-anim fa fa-long-arrow-right"><span>Read More</span></a>
+            <a href="javascript:;" onclick="loadPost({{$item['id']}})" class="button button-style button-anim fa fa-long-arrow-right"><span>Read More</span></a>
             <span class="badge badge-success">Posted 2012-08-02 20:47:04</span>
         </div>
     <!-- Blog Post End -->
