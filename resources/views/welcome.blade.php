@@ -4,68 +4,9 @@
  <title>RSS Posts</title>
 
 @endsection
+<link href="{{asset('public/css/posts.css')}}" rel="stylesheet" type="text/css">
 @section('page_styles')
-<style type="text/css">
-.modal {
-}
-.vertical-alignment-helper {
-    display:table;
-    height: 100%;
-    width: 100%;
-}
-.vertical-align-center {
-    /* To center vertically */
-    display: table-cell;
-    vertical-align: middle;
-}
-.modal-content {
-    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
-    width:inherit;
-    height:inherit;
-    /* To center horizontally */
-    margin: 0 auto;
-}
-</style>
 
-<!---------------------------->
-<style type="text/css">
-    .counter {
-    background-color:#f5f5f5;
-    padding: 20px 0;
-    border-radius: 5px;
-}
-
-.count-title {
-    font-size: 40px;
-    font-weight: normal;
-    margin-top: 10px;
-    margin-bottom: 0;
-    text-align: center;
-}
-
-.count-text {
-    font-size: 13px;
-    font-weight: normal;
-    margin-top: 10px;
-    margin-bottom: 0;
-    text-align: center;
-}
-
-.fa-2x {
-    margin: 0 auto;
-    float: none;
-    display: table;
-    color: #4ad1e5;
-}
-</style>
-
-<!-- Modal -->
-<style type="text/css">
-    .modal-body {
-    max-height: calc(100vh - 210px);
-    overflow-y: auto;
-}
-</style>
 @endsection
 
 @section('page_scripts')
@@ -261,6 +202,7 @@ jQuery(function ($) {
                     <a style=" font-size: 12px;" href="{{$item['link']}}" target="_blank">{{substr($item['link'], 0, 50)}}</a>
             </p>
             <a href="javascript:;" onclick="loadDatbaseDetails({{$item['id']}})" class="button button-style button-anim fa fa-long-arrow-right"><span>Read More</span></a>
+            <span class="badge badge-success">Posted 2012-08-02 20:47:04</span>
         </div>
     <!-- Blog Post End -->
     @endforeach
