@@ -226,7 +226,11 @@ jQuery(function ($) {
             <select name="channel_id" id="channel" class="form-control" id="exampleFormControlSelect1">
                 <option value="">Select a channel</option>
                 @foreach($feed_channel as $channel)
-                <option value="{{$channel['id']}}">{{$channel['channel_name']}}</option>
+                @php
+                    $provider = isset($_GET['channel_id']) ? $_GET['channel_id'] : '';
+                    $val = isset($channel['id']) && $channel['id'] == $provider ? 'selected' : '';
+                @endphp
+                <option value="{{$channel['id']}}" {{$val}}>{{$channel['channel_name']}}</option>
                 @endforeach
             </select>
         </div>
