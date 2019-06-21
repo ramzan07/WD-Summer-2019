@@ -14,7 +14,11 @@ class ChannelController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        return view('providers');
+        $channel = file_get_contents('http://localhost/wb-summar/api/feeds/channels');
+        $data['channels'] = json_decode($channel, TRUE);
+
+        $feed_channel = $data['channels']['data'];
+        return view('providers', compact('feed_channel'));
     }
 
     /**
