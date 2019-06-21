@@ -1,30 +1,34 @@
 @extends('layout.master')
 
 @section('page_styles')
-<!--Table-->
-<style type="text/css">
-	.custab{
-    border: 1px solid #ccc;
-    padding: 5px;
-    margin: 5% 0;
-    box-shadow: 3px 3px 2px #ccc;
-    transition: 0.5s;
-    }
-.custab:hover{
-    box-shadow: 3px 3px 0px transparent;
-    transition: 0.5s;
-    }
-</style>
+<link href="{{asset('public/css/posts.css')}}" rel="stylesheet" type="text/css">
 @endsection
 
 @section('page_scripts')
-
+<script src="{{asset('public/js/counter.js')}}"></script>
 @endsection
 
 @section('page_heading')
 <div class="sub-title">
     <h2>RSS Providers</h2>
     <a href="contact.html"><i class="icon-envelope"></i></a>
+</div>
+@endsection
+
+@section('sidebarCards')
+<div class="my-detail col"  style="margin-bottom: 0px;">
+    <div class="white-spacing">
+      <i class="fa fa-code fa-2x"></i>
+      <h1 class="timer count-title count-number" data-to="100" data-speed="1500"></h2>
+      <h1>News Count</h1>
+    </div>
+      </div>
+<div class="my-detail col"  style="margin-bottom: 0px;">
+    <div class="white-spacing">
+      <i class="fa fa-code fa-2x"></i>
+      <h1 class="timer count-title count-number" data-to="200" data-speed="1500"></h2>
+      <h1>News Count</h1>
+    </div>
 </div>
 @endsection
 
@@ -49,7 +53,4 @@
             @endforeach
     </table>
 
-<!-- !>
-	Collapse menue
-	>-->
 @endsection
