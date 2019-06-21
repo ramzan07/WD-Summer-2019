@@ -264,6 +264,13 @@ jQuery(function ($) {
         </div>
     <!-- Blog Post End -->
     @endforeach
+
+    @section('loadPosts')
+    <div class="col-md-12 text-center">
+        <a href="javascript:void(0)" id="load-more-post" class="load-more-button">Load</a>
+        <div id="post-end-message"></div>
+    </div>
+    @endsection
 <div class="modal fade" id="modal-db-details" tabindex="-1" role="dialog" aria-hidden="true" style="overflow-y">
     <div class="vertical-alignment-helper">
         <div class="modal-dialog vertical-align-center" style="width: 700px;">
