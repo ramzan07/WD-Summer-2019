@@ -130,7 +130,7 @@
                     <a href="javascript:;" onclick="loadPost({{$item['id']}})" class="button button-style button-anim fa fa-long-arrow-right"><span>View Post</span></a>
                 </div>
                 <div class="col-sm-4">
-                    <span class="badge badge-success" style="margin-top: 20px;">Posted 2012-08-02 20:47:04</span>
+                    <span class="badge badge-success" style="margin-top: 20px;">Created at {{ucfirst(date('Y-m-d H:i:s A', strtotime($item['created_at'])))}}</span>
                 </div>
             </div>
             <!-- <span class="badge badge-success" style="">Posted 2012-08-02 20:47:04</span> -->
