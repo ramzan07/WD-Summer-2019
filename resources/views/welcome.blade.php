@@ -4,9 +4,9 @@
  <title>RSS Posts</title>
 
 @endsection
-<link href="{{asset('public/css/posts.css')}}" rel="stylesheet" type="text/css">
-@section('page_styles')
 
+@section('page_styles')
+<link href="{{asset('public/css/posts.css')}}" rel="stylesheet" type="text/css">
 @endsection
 
 @section('page_scripts')
@@ -232,8 +232,5 @@ jQuery(function ($) {
         </div>
     </div>
 </div>
-<!---Loader -->
-<div class="preloader" id="preloader">
-       <div class="rounder"></div>
-</div>
+
 @endsection
