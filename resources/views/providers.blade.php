@@ -11,7 +11,7 @@
 @section('page_heading')
 <div class="sub-title">
     <h2>RSS Providers</h2>
-    <a href="contact.html"><i class="icon-envelope"></i></a>
+    <a href="{{route('getProviders')}}"><i class="icon-support"></i></a>
 </div>
 @endsection
 
