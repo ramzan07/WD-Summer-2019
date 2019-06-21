@@ -11,12 +11,15 @@
   |
  */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
 
 Route::get('/{channel_id?}', 'FeedController@index')->name('home');
+
 Route::get('feed/refresh', 'FeedController@refresh')->name('refreshFeed');
+
 Route::get('feed/post/{id}', 'FeedController@show')->name('postDetails');
+
+Route::get('get/providers', 'ChannelController@index')->name('getProviders');
+
 Route::get('channel/add', 'ChannelController@create')->name('createChannel');
+
 Route::post('channel/store', 'ChannelController@store')->name('storeChannel');
