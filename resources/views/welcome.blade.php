@@ -58,6 +58,14 @@
     color: #4ad1e5;
 }
 </style>
+
+<!-- Modal -->
+<style type="text/css">
+    .modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+</style>
 @endsection
 
 @section('page_scripts')
@@ -178,6 +186,15 @@ jQuery(function ($) {
     }
 </script>
 
+<script type="text/javascript">
+    $("#searchChannel").click(function(){
+        if($('#channel').val() == ""){
+            alert("Please Select a Channel");
+            return false;
+        }
+    });
+</script>>
+
 @endsection
 
 @section('page_heading')
@@ -206,7 +223,7 @@ jQuery(function ($) {
 <form action="{{route('home')}}" method="GET">
 
         <div class="col-sm-6">
-            <select name="channel_id" class="form-control" id="exampleFormControlSelect1">
+            <select name="channel_id" id="channel" class="form-control" id="exampleFormControlSelect1">
                 <option value="">Select a channel</option>
                 @foreach($feed_channel as $channel)
                 <option value="{{$channel['id']}}">{{$channel['channel_name']}}</option>
@@ -214,7 +231,7 @@ jQuery(function ($) {
             </select>
         </div>
         <div class="col-sm-3">
-            <input class="btn btn-primary form-group form-control"  type="submit" value="Search">
+            <input class="btn btn-primary form-group form-control" id="searchChannel"  type="submit" value="Search">
         </div>
 </form>
 <form action="{{route('refreshFeed')}}" method="GET">
@@ -243,7 +260,7 @@ jQuery(function ($) {
         </div>
     <!-- Blog Post End -->
     @endforeach
-<div class="modal fade" id="modal-db-details" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modal-db-details" tabindex="-1" role="dialog" aria-hidden="true" style="overflow-y">
     <div class="vertical-alignment-helper">
         <div class="modal-dialog vertical-align-center" style="width: 700px;">
             <div class="modal-content">
