@@ -140,9 +140,30 @@ class FeedController extends Controller {
     }
 
     public function show($id) {
-
         $post = \App\RssPost::where('id', $id)->first();
-        return View('post', compact('post'));
+
+        $str = '';
+
+        $str .="<div class=\"post-title\">
+                    Title : {$post->title}
+                </div>";
+
+        $str .="<br/>";
+
+        $str .="<div class=\"post-title\">
+                    Description : {$post->description}
+                </div>";
+
+        $str .="<br/>";
+
+        $str .="<p class=\"post-meta\">Link : 
+                            <a style=\"font-size: 12px;\" href=\"{$post->link}\">{$post->link}</a>
+                        </p>";
+        $posted_date = date('Y-m-d H:i:s a', strtotime($post->pubDate));
+        $str .="<p class=\"post-meta\">Posted on {$posted_date}
+                        </p>";
+
+        return $str;
     }
 
 }

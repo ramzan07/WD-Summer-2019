@@ -162,6 +162,22 @@ jQuery(function ($) {
 });
 </script>
 
+<script type="text/javascript">
+    function loadDatbaseDetails(id)
+    {
+        $("#modal-loading").modal('show');
+        $.ajax({
+            url: 'feed/post/'+ id,
+            type: "GET",
+            success: function(result) {
+                $('#tbody-data').html(result);
+                $("#modal-db-details").modal('show');
+                $("#modal-loading").modal('hide');
+            }
+        });
+    }
+</script>
+
 @endsection
 
 @section('page_heading')
@@ -222,12 +238,12 @@ jQuery(function ($) {
             <p>{{strip_tags($item['description'])}}</p>
             <p class="post-meta">Link : 
                     <a style=" font-size: 12px;" href="{{$item['link']}}" target="_blank">{{substr($item['link'], 0, 50)}}</a>
-            </p>                                      
-            <a href="#modalOnLoad" data-toggle="modal" class="button button-style button-anim fa fa-long-arrow-right"><span>Read More</span></a>
+            </p>
+            <a href="javascript:;" onclick="loadDatbaseDetails({{$item['id']}})" class="button button-style button-anim fa fa-long-arrow-right"><span>Read More</span></a>
         </div>
     <!-- Blog Post End -->
     @endforeach
-    <div class="modal fade" id="modalOnLoad" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modal-db-details" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="vertical-alignment-helper">
         <div class="modal-dialog vertical-align-center" style="width: 700px;">
             <div class="modal-content">
@@ -235,15 +251,19 @@ jQuery(function ($) {
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 
                     </button>
-                     <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                     <h4 class="modal-title" id="myModalLabel">Post Details</h4>
 
                 </div>
-                <div class="modal-body">...</div>
+                <div class="modal-body"><div id ="tbody-data"></div></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<!---Loader -->
+<div id="modal-loading" class="modal" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <center><i class="fa fa-spinner fa-spin fa-2x" style="padding-top: 200px;"></i></center>
 </div>
 @endsection
