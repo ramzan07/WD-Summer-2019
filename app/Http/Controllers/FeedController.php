@@ -143,26 +143,29 @@ class FeedController extends Controller {
     }
 
     public function show($id) {
-        $post = \App\RssPost::where('id', $id)->first();
+        $post = file_get_contents('http://localhost/wb-summar/api/feeds/get?post_id=' . $id);
+
+        $data = json_decode($post , TRUE);
+        $feed_posts = $data['data'][0];
 
         $str = '';
 
         $str .="<div class=\"post-title\">
-                    Title : {$post->title}
+                    Title : {$feed_posts['title']}
                 </div>";
 
         $str .="<br/>";
 
         $str .="<div class=\"post-title\">
-                    Description : {$post->description}
+                    Description : {$feed_posts['description']}
                 </div>";
 
         $str .="<br/>";
 
         $str .="<p class=\"post-meta\">Link : 
-                            <a style=\"font-size: 12px;\" href=\"{$post->link}\">{$post->link}</a>
+                            <a style=\"font-size: 12px;\" href=\"{$feed_posts['link']}\">{$feed_posts['link']}</a>
                         </p>";
-        $posted_date = date('Y-m-d H:i:s a', strtotime($post->pubDate));
+        $posted_date = date('Y-m-d H:i:s a', strtotime($feed_posts['pubDate']));
         $str .="<p class=\"post-meta\">Posted on {$posted_date}
                         </p>";
 
