@@ -130,6 +130,8 @@ class FeedController extends Controller {
         } else {
             $post = file_get_contents('http://localhost/wb-summar/api/feeds/get');
         }
+
+
         $channel = file_get_contents('http://localhost/wb-summar/api/feeds/channels');
         $data['posts'] = json_decode($post, TRUE);
         $data['channels'] = json_decode($channel, TRUE);
