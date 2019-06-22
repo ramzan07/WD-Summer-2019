@@ -16,6 +16,7 @@
     <meta name="url" content="http://www.yourdomainname.com">
     <meta name="copyright" content="company name">
     <meta name="robots" content="index,follow">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     
     @yield('title')
     
