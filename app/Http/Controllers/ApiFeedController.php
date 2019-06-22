@@ -46,7 +46,13 @@ class ApiFeedController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function channels() {
-        $channels = \App\RssChannel::all();
+
+        $request_params = Input::all();
+        if (isset($request_params['provider_id'])) {
+            $channels = \App\RssChannel::where('id', $request_params['provider_id'])->get();
+        } else {
+            $channels = \App\RssChannel::all();
+        }
         return $this->jsonSuccessResponse('Process is processed success', $channels);
     }
 

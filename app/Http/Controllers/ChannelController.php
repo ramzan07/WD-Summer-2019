@@ -28,10 +28,9 @@ class ChannelController extends Controller {
      */
     public function viewProvider(Request $request) {
         $id     = request('provider_id');
-        $channel = file_get_contents('http://localhost/wb-summar/api/feeds/channels');
-        $data['channels'] = json_decode($channel, TRUE);
-
-        $feed_channel = $data['channels']['data'];
+        $channel = file_get_contents('http://localhost/wb-summar/api/feeds/channels?provider_id=' . $id);
+        $data = json_decode($channel, TRUE);
+        $feed_posts = $data['data'][0];
 
         $str = '';
 
