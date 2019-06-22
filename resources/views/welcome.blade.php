@@ -132,7 +132,7 @@
               <h1>{{$item['title']}}</h1>
             </div>
             <div class="post-info">
-                <span>Posted On {{ucfirst(date('Y-m-d H:i:s A', strtotime($item['pubDate'])))}}&nbsp;&nbsp;<a href="#" target="_blank">Alex Parker</a></span> 
+                <span class="post-meta {{ (isset($item['status']) && $item['status'] == 0) ? 'not-allowed' : '' }}">Posted On {{ucfirst(date('Y-m-d H:i:s A', strtotime($item['pubDate'])))}}&nbsp;&nbsp;<a href="#" target="_blank" class="{{ (isset($item['status']) && $item['status'] == 0) ? 'not-active' : '' }}">{{$item['channel_name']}}</a></span>
             </div>  
             <p>{{strip_tags($item['description'])}}</p>
 

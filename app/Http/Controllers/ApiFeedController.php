@@ -22,19 +22,19 @@ class ApiFeedController extends Controller {
         if (isset($request_params['id'])) {
 
             $feeds = DB::table('rss_posts')->join('rss_channels', 'rss_channels.id', '=' , 'rss_posts.channel_id')
-            ->select('rss_posts.*', 'rss_channels.status')
+            ->select('rss_posts.*', 'rss_channels.status', 'rss_channels.channel_name')
             ->where('channel_id', $request_params['id'])
             ->get();
         } elseif(isset($request_params['post_id'])){
 
             $feeds = DB::table('rss_posts')->join('rss_channels', 'rss_channels.id', '=' , 'rss_posts.channel_id')
-            ->select('rss_posts.*', 'rss_channels.status')
+            ->select('rss_posts.*', 'rss_channels.status', 'rss_channels.channel_name')
             ->where('rss_posts.id', $request_params['post_id'])
             ->get();
 
         }else {
             $feeds = DB::table('rss_posts')->join('rss_channels', 'rss_channels.id', '=' , 'rss_posts.channel_id')
-            ->select('rss_posts.*', 'rss_channels.status')
+            ->select('rss_posts.*', 'rss_channels.status', 'rss_channels.channel_name')
             ->get();
 
         }
