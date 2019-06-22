@@ -20,24 +20,38 @@ class FeedController extends Controller {
      */
     public function refresh() {
 
-        $settings = \DB::table('settings')->where('type', 'update')->first();
+        $provider_id = request('provider_id');
+
+        $settings = \DB::table('settings')->where('type', 'update')->where('provider_id', $provider_id)->first();
         $flag = $this->calculateTimeDiffToUpdate($settings->time);
 
-        if (!$flag) {
+        /*if (!$flag) {
             return redirect()->back()->with('warning_message', 'Update request time is not proper');
+        }*/
+        if (!$flag) {
+            return "time_issue";
         }
+
         $channels = \App\RssChannel::all();
 
-        foreach ($channels as $channel) {
+        /*foreach ($channels as $channel) {
             $xmlStr = file_get_contents($channel->channel_source);
             $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);           
             $json = json_encode($xml);
             $array = json_decode($json, TRUE);
 
             $this->processRssFeed($array, $channel);
-        }
+        }*/
+        $channel = \DB::table('rss_channels')->where('id', $provider_id)->first();
+        $xmlStr = file_get_contents($channel->channel_source);
+        $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);
+        $json = json_encode($xml);
+        $array = json_decode($json, TRUE);
 
-        return redirect()->route('home')->with('success_message', 'Feed has been update successfully');
+        $this->processRssFeed($array, $channel);
+
+        return "success";
+        /*return redirect()->route('home')->with('success_message', 'Feed has been update successfully');*/
     }
 
     /**
@@ -82,7 +96,16 @@ class FeedController extends Controller {
                 $this->createPost($item, $channel);
             }
         }
-        $settings = \DB::table('settings')->where('type', 'update')->update(['time' => date('Y-m-d H:i:s')]);
+        /*$settings = \DB::table('settings')->where('type', 'update')->update(['time' => date('Y-m-d H:i:s')]);*/
+        $updateSetting = \DB::table('settings')->where('type', 'update')->where('provider_id' , $channel->id)->first();
+        if(empty($updateSetting)){
+            $setting['provider_id'] = $channel->id;
+            $setting['type'] = 'update';
+            $setting['time'] = date('Y-m-d H:i:s');
+            \App\Settings::create($setting);
+        } else{
+            $settings = \DB::table('settings')->where('type', 'update')->where('provider_id', $channel->id)->update(['time' => date('Y-m-d H:i:s')]);
+        }
     }
 
     /**

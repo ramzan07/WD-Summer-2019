@@ -36,6 +36,34 @@
 </script>
 
 <script type="text/javascript">
+    function refreshFeeds(id)
+    {
+        $.ajax({
+            url: '{{route('refreshFeed')}}',
+            type: "GET",
+            data: {
+                'provider_id': id,
+            },
+            success: function(result) {
+                if(result == 'time_issue') {
+                    $('#msg').show();
+                    $('#msg-text').html('Request time is too short');
+                    $('#msg').removeClass('display-hide').addClass('alert alert-danger display-show');
+                }else{
+                    $('#msg').show();
+                    $('#msg-text').html('success updated');
+                    $('#msg').removeClass('alert alert-danger display-show');
+                    $('#msg').removeClass('display-hide').addClass('alert alert-success display-show');
+                }
+                setTimeout(function() {
+                        $('#msg').fadeOut('slow');
+                    }, 2000);
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
     $("input:checkbox").on("change", function(event) {
      if($(this).is(":checked")) {
         var status = "1";
@@ -111,7 +139,10 @@
                 <td style="width: 2px;">{{++$key}}</td>
                 <td>{{$channel['channel_name']}}</td>
                 <td><a>{{$channel['channel_source']}}</a></td>
-                <td class="text-center" style="width: 150px;"><a onclick="loadProvider({{$channel['id']}})" class='btn btn-info btn-xs' href="#"><span class="icon-eye"></span> View</a>
+                <td class="text-center" style="width: 200px;"><a onclick="loadProvider({{$channel['id']}})" class='btn btn-info btn-xs' href="#"><span class="icon-eye"></span> View</a>
+
+                <a onclick="refreshFeeds({{$channel['id']}})" class='btn btn-info btn-xs' href="#"><span class="icon-refresh"></span> Refresh</a>
+
                 @php
                     $toogleVal = isset($channel['status']) && $channel['status'] == 1 ? 'checked' : '';
                 @endphp
