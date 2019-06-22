@@ -22,6 +22,58 @@ class ChannelController extends Controller {
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function viewProvider(Request $request) {
+        $id     = request('provider_id');
+        $channel = file_get_contents('http://localhost/wb-summar/api/feeds/channels');
+        $data['channels'] = json_decode($channel, TRUE);
+
+        $feed_channel = $data['channels']['data'];
+
+        $str = '';
+
+        $str .="<div class=\"col-sm-12 custom-pad-2\">
+                    <div class=\"table-responsive\">
+                        <table class=\"table table-bordered\">
+                         <tbody>
+                        <tr>
+                          <td><b>Skills</b></td>
+                          <td>HTML5 / CSS3 / JAVASCRIPT</td>
+                       </tr>
+
+                        <tr>
+                          <td><b>Duration</b></td>
+                          <td>{$id}</td>
+                       </tr>
+
+                        <tr>
+                          <td><b>Cost</b></td>
+                          <td>$5000</td>
+                       </tr>
+
+                        <tr>
+                          <td><b>Url</b></td>
+                          <td><a href=\"http://www.uipasta.com\" title=\"uipasta\">Rolling</a></td>
+                       </tr>
+
+                        <tr>
+                          <td><b>About Project</b></td>
+                          <td>Lorem ipsum dolor sit amet consectetur adipiscing elit Vivamus feugiat facilisis dignissim Etiam scelerisque ultricies euismod.</td>
+                       </tr
+
+                      </tbody>
+                      </table>
+                    </div>
+                </div>";
+
+        return $str;
+
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -114,7 +166,7 @@ class ChannelController extends Controller {
         $provider=\App\RssChannel::where('id',$id)->first();
         $provider->status = $status;
         $provider->save();
-        echo 'success';
+        return 'success';
     }
 
     /**

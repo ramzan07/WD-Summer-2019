@@ -19,6 +19,23 @@
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
 
 <script type="text/javascript">
+    function loadProvider(id)
+    {
+        $.ajax({
+            url: '{{route('detailsProvider')}}',
+            type: "GET",
+            data: {
+                'provider_id': id,
+            },
+            success: function(result) {
+                $('#tbody-data').html(result);
+                $("#modal-db-details").modal('show');
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
     $("input:checkbox").on("change", function(event) {
      if($(this).is(":checked")) {
         var status = "1";
@@ -94,7 +111,7 @@
                 <td style="width: 2px;">{{++$key}}</td>
                 <td>{{$channel['channel_name']}}</td>
                 <td><a>{{$channel['channel_source']}}</a></td>
-                <td class="text-center" style="width: 150px;"><a class='btn btn-info btn-xs' href="#"><span class="icon-eye"></span> View</a>
+                <td class="text-center" style="width: 150px;"><a onclick="loadProvider({{$channel['id']}})" class='btn btn-info btn-xs' href="#"><span class="icon-eye"></span> View</a>
                 @php
                     $toogleVal = isset($channel['status']) && $channel['status'] == 1 ? 'checked' : '';
                 @endphp
@@ -104,5 +121,24 @@
             @endforeach
     </table>
 
+<!--  -->
+<div class="modal fade" id="modal-db-details" tabindex="-1" role="dialog" aria-hidden="true" style="overflow-y">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center" style="width: 700px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 
+                    </button>
+                     <h4 class="modal-title" id="myModalLabel">Post Details</h4>
+
+                </div>
+                <div class="modal-body"><div id ="tbody-data"></div></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

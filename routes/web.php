@@ -27,3 +27,4 @@ Route::post('channel/store', 'ChannelController@store')->name('storeChannel');
 /* My Routes*/
 
 Route::put('provider/update', 'ChannelController@updateProvider')->name('updateProvider');
+Route::get('provider/details', 'ChannelController@viewProvider')->name('detailsProvider');
