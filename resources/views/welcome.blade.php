@@ -7,6 +7,18 @@
 
 @section('page_styles')
 <link href="{{asset('public/css/posts.css')}}" rel="stylesheet" type="text/css">
+
+<style type="text/css">
+    .not-active {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: red;
+}
+
+.not-allowed {cursor: not-allowed;}
+</style>
+
 @endsection
 
 @section('page_scripts')
@@ -117,24 +129,24 @@
     @foreach($feed_posts as $item)
         <div class="col-md-12 blog-post">
             <div class="post-title">
-              <a href="single.html"><h1>{{$item['title']}}</h1></a>
+              <h1>{{$item['title']}}</h1>
             </div>
             <div class="post-info">
-                <span>Posted On {{ucfirst(date('Y-m-d H:i:s A', strtotime($item['pubDate'])))}}&nbsp;&nbsp;<a href="#" target="_blank">Alex Parker</a></span>
+                <span>Posted On {{ucfirst(date('Y-m-d H:i:s A', strtotime($item['pubDate'])))}}&nbsp;&nbsp;<a href="#" target="_blank">Alex Parker</a></span> 
             </div>  
             <p>{{strip_tags($item['description'])}}</p>
-            <p class="post-meta">Link : 
-                    <a style=" font-size: 12px;" href="{{$item['link']}}" target="_blank">{{substr($item['link'], 0, 100)}}</a>
+
+            <p class="post-meta {{ (isset($item['status']) && $item['status'] == 0) ? 'not-allowed' : '' }}">Link :
+                    <a style=" font-size: 12px;"  class="{{ (isset($item['status']) && $item['status'] == 0) ? 'not-active' : '' }}" href="{{$item['link']}}" target="_blank">{{substr($item['link'], 0, 100)}}</a>
             </p>
             <div class="row">
                 <div class="col-sm-8">
-                    <a href="javascript:;" onclick="loadPost({{$item['id']}})" class="button button-style button-anim fa fa-long-arrow-right"><span>View Post</span></a>
+                    <p class="post-meta {{ (isset($item['status']) && $item['status'] == 0) ? 'not-allowed' : '' }}"><a href="javascript:;" onclick="loadPost({{$item['id']}})" class="button button-style button-anim fa fa-long-arrow-right {{ (isset($item['status']) && $item['status'] == 0) ? 'not-active' : '' }}"><span>View Post</span></a></p>
                 </div>
                 <div class="col-sm-4">
                     <span class="badge badge-success" style="margin-top: 20px;">Created at {{ucfirst(date('Y-m-d H:i:s A', strtotime($item['created_at'])))}}</span>
                 </div>
             </div>
-            <!-- <span class="badge badge-success" style="">Posted 2012-08-02 20:47:04</span> -->
         </div>
     <!-- Blog Post End -->
     @endforeach

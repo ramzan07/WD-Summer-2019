@@ -146,6 +146,7 @@ class FeedController extends Controller {
         $post = file_get_contents('http://localhost/wb-summar/api/feeds/get?post_id=' . $id);
 
         $data = json_decode($post , TRUE);
+
         $feed_posts = $data['data'][0];
 
         $str = '';
