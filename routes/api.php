@@ -12,4 +12,4 @@
  */
 
 Route::get('feeds/get/{id?}', 'ApiFeedController@index');
-Route::get('feeds/channels', 'ApiFeedController@channels');
+Route::get('feeds/channels/{id?}', 'ApiFeedController@channels');
