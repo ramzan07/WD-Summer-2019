@@ -19,12 +19,30 @@
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
 
 <script type="text/javascript">
-    $("#providerStatus").on("change", function(event) {
+    $("input:checkbox").on("change", function(event) {
      if($(this).is(":checked")) {
-        alert("on");
+        var status = "1";
      } else {
-        alert("off");
+        var status = "0";
      }
+     var id = $(this).attr("value");
+
+    $.ajax({
+            url: '{{route('updateProvider')}}',
+            type :"PUT",
+            data    : {status, id},
+            success: function(result) {
+                if(result == 'success') {
+                        $('#msg').show();
+                        $('#msg-text').html('Provider Status Updated');
+                        $('#msg').removeClass('display-hide').addClass('alert alert-success display-show');
+                        setTimeout(function() {
+                            $('#msg').fadeOut('slow');
+                        }, 2000);
+                  }
+            }
+    });
+
     });
 </script>
 
@@ -54,6 +72,12 @@
 </div>
 @endsection
 
+@section('action_buttons')
+<div id="msg" class="display-hide">
+    <center><span id='msg-text'><span></center>
+</div>
+@endsection
+
 @section('content')
     <table class="table table-striped custab">
     <thead>
@@ -71,10 +95,14 @@
                 <td>{{$channel['channel_name']}}</td>
                 <td><a>{{$channel['channel_source']}}</a></td>
                 <td class="text-center" style="width: 150px;"><a class='btn btn-info btn-xs' href="#"><span class="icon-eye"></span> View</a>
-                <input type="checkbox" id="providerStatus" checked data-toggle="toggle" data-size="xs">
+                @php
+                    $toogleVal = isset($channel['status']) && $channel['status'] == 1 ? 'checked' : '';
+                @endphp
+                <input type="checkbox" id="providerStatus" value="{{$channel['id']}}" {{$toogleVal}} data-toggle="toggle" data-size="xs">
                 </td>
          	</tr>
             @endforeach
     </table>
+
 
 @endsection

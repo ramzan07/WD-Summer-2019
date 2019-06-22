@@ -107,8 +107,14 @@ class ChannelController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
-        //
+    public function updateProvider(Request $request) {
+        $id     = $request->input('id');
+        $status = $request->input('status');
+
+        $provider=\App\RssChannel::where('id',$id)->first();
+        $provider->status = $status;
+        $provider->save();
+        echo 'success';
     }
 
     /**

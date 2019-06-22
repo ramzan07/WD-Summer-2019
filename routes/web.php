@@ -23,3 +23,7 @@ Route::get('get/providers', 'ChannelController@index')->name('getProviders');
 Route::get('channel/add', 'ChannelController@create')->name('createChannel');
 
 Route::post('channel/store', 'ChannelController@store')->name('storeChannel');
+
+/* My Routes*/
+
+Route::put('provider/update', 'ChannelController@updateProvider')->name('updateProvider');
