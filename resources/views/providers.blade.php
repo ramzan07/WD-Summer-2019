@@ -2,10 +2,32 @@
 
 @section('page_styles')
 <link href="{{asset('public/css/posts.css')}}" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
+
+<style type="text/css">
+  .btn-group-xs>.btn, .btn-xs {
+    padding: .70rem .6rem .32rem !important;
+    font-size: .875rem;
+    line-height: .5;
+    border-radius: .2rem;
+</style>
 @endsection
 
 @section('page_scripts')
 <script src="{{asset('public/js/counter.js')}}"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
+
+<script type="text/javascript">
+    $("#providerStatus").on("change", function(event) {
+     if($(this).is(":checked")) {
+        alert("on");
+     } else {
+        alert("off");
+     }
+    });
+</script>
+
 @endsection
 
 @section('page_heading')
@@ -48,7 +70,9 @@
                 <td style="width: 2px;">{{++$key}}</td>
                 <td>{{$channel['channel_name']}}</td>
                 <td><a>{{$channel['channel_source']}}</a></td>
-                <td class="text-center"><a class='btn btn-info btn-xs btn btn-primary btn-sm hidden-xs' href="#" data-toggle="collapse" data-target="#feature-1"><span class="icon-eye"></span> Edit</a></td>
+                <td class="text-center" style="width: 150px;"><a class='btn btn-info btn-xs' href="#"><span class="icon-eye"></span> View</a>
+                <input type="checkbox" id="providerStatus" checked data-toggle="toggle" data-size="xs">
+                </td>
          	</tr>
             @endforeach
     </table>
