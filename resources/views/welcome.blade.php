@@ -113,6 +113,7 @@
 @section('content')
 
     <!-- Blog Post Start -->
+    @if(!empty($feed_posts))
     @foreach($feed_posts as $item)
         <div class="col-md-12 blog-post">
             <div class="post-title">
@@ -137,13 +138,19 @@
         </div>
     <!-- Blog Post End -->
     @endforeach
-
+    @else
+    <div class="alert alert-warning">
+        <strong>Warning!</strong> No Rss Record found
+    </div>
+    @endif
+    @if(!empty($feed_posts))
     @section('loadPosts')
     <div class="col-md-12 text-center">
         <a href="javascript:void(0)" id="load-more-post" class="load-more-button">Load</a>
         <div id="post-end-message"></div>
     </div>
     @endsection
+    @endif
 <div class="modal fade" id="modal-db-details" tabindex="-1" role="dialog" aria-hidden="true" style="overflow-y">
     <div class="vertical-alignment-helper">
         <div class="modal-dialog vertical-align-center" style="width: 700px;">
