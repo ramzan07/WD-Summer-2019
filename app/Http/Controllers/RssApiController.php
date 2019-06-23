@@ -8,7 +8,7 @@ Use DB;
 
 class RssApiController  extends Controller {
 
-    use \App\Http\Traits\CommonService;
+    use \App\Http\Traits\ApiService;
 
     /**
      * Display a listing of the resource.

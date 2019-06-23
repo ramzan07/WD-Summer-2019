@@ -10,7 +10,7 @@ namespace App\Http\Traits;
 
 use Illuminate\Support\Facades\Response;
 
-trait CommonService {
+trait ApiService {
 
     /**
      * jsonErrorResponse method
