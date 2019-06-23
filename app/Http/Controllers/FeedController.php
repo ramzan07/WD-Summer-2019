@@ -164,7 +164,7 @@ class FeedController extends Controller {
         $postsCount = count($feed_posts);
         $providersCount = count($feed_channel);
 
-        return view('welcome', compact('feed_posts', 'feed_channel', 'postsCount', 'providersCount'));
+        return view('index', compact('feed_posts', 'feed_channel', 'postsCount', 'providersCount'));
     }
 
     public function show($id) {
