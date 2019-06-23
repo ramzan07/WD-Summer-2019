@@ -44,8 +44,9 @@ class ChannelController extends Controller {
                        </tr>
 
                         <tr>
-                          <td><b>Date of Last Update</b></td>
-                          <td>{$id}</td>
+                          <td><b>Date of Last Update</b></td>";
+                          $last_update_date  = ucfirst(date('Y-m-d H:i:s A', strtotime(isset($feed_posts['last_update_date']) ? $feed_posts['last_update_date'] : 'Not Found')));
+        $str .="<td>{$last_update_date}</td>
                        </tr>
 
                         <tr>

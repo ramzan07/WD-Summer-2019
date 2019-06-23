@@ -35,9 +35,9 @@ class FeedController extends Controller {
             return "time_issue";
         }
 
-        $channels = \App\RssChannel::all();
+        /*$channels = \App\RssChannel::all();
 
-        /*foreach ($channels as $channel) {
+        foreach ($channels as $channel) {
             $xmlStr = file_get_contents($channel->channel_source);
             $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);           
             $json = json_encode($xml);
@@ -125,6 +125,8 @@ class FeedController extends Controller {
         $rss['link'] = $item['link'];
         $rss['pubDate'] = date('Y-m-d H:i:s', strtotime($item['pubDate']));
         \App\RssPost::create($rss);
+
+        \DB::table('rss_channels')->where('id', $channel->id)->update(['last_update_date' => date('Y-m-d H:i:s')]);
     }
 
     /**
