@@ -11,7 +11,7 @@ namespace App\Http\Controllers;
 use DateTime;
 use Illuminate\Support\Facades\Input;
 
-class FeedController extends Controller {
+class RssController extends Controller {
 
     /**
      * refresh method 

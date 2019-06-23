@@ -11,5 +11,5 @@
   |
  */
 
-Route::get('feeds/get/{id?}', 'ApiFeedController@index');
-Route::get('feeds/channels/{id?}', 'ApiFeedController@channels');
+Route::get('feeds/get/{id?}', 'RssApiController@index');
+Route::get('feeds/channels/{id?}', 'RssApiController@channels');

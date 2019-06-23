@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
 
-class ChannelController extends Controller {
+class ProviderController extends Controller {
 
     /**
      * Display a listing of the resource.

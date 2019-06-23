@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 Use DB;
 
-class ApiFeedController extends Controller {
+class RssApiController  extends Controller {
 
     use \App\Http\Traits\CommonService;
 
