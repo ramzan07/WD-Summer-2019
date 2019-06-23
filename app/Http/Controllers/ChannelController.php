@@ -31,7 +31,6 @@ class ChannelController extends Controller {
         $channel = file_get_contents('http://localhost/wb-summar/api/feeds/channels?provider_id=' . $id);
         $data = json_decode($channel, TRUE);
         $feed_posts = $data['data'][0];
-
         $str = '';
 
         $str .="<div class=\"col-sm-12 custom-pad-2\">
@@ -40,7 +39,7 @@ class ChannelController extends Controller {
                          <tbody>
                         <tr>
                           <td><b>Adress Url</b></td>
-                          <td>HTML5 / CSS3 / JAVASCRIPT</td>
+                          <td><a target= \"_blank\" href=\"{$feed_posts['channel_source']}\">{$feed_posts['channel_source']}</td>
                        </tr>
 
                         <tr>
@@ -60,11 +59,6 @@ class ChannelController extends Controller {
                           $last_update_attempt  = ucfirst(date('Y-m-d H:i:s A', strtotime($feed_posts['last_attempt_date'])));
         $str .="<td>{$last_update_attempt}</td>
                        </tr>
-
-                        <tr>
-                          <td><b>About Project</b></td>
-                          <td>Lorem ipsum dolor sit amet consectetur adipiscing elit Vivamus feugiat facilisis dignissim Etiam scelerisque ultricies euismod.</td>
-                       </tr
 
                       </tbody>
                       </table>
