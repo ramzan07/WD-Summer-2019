@@ -75,7 +75,7 @@ class RssController extends Controller {
     public function processRssFeed($data, $channel) {
 
         foreach ($data['channel']['item'] as $item) {
-            $post = \App\RssPost::where('link', $item['link'])->first();
+            $post = \App\Models\Feeds::where('link', $item['link'])->first();
             if (!empty($post)) {
                 $settings = \DB::table('settings')->where('type', 'delete')->first();
                 $time = $this->calculateTimeDiffToDelete($post->created_at);
@@ -93,7 +93,7 @@ class RssController extends Controller {
             $setting['provider_id'] = $channel->id;
             $setting['type'] = 'update';
             $setting['time'] = date('Y-m-d H:i:s');
-            \App\Settings::create($setting);
+            \App\Models\Configration::create($setting);
         } else{
             $settings = \DB::table('settings')->where('type', 'update')->where('provider_id', $channel->id)->update(['time' => date('Y-m-d H:i:s')]);
         }
@@ -112,7 +112,7 @@ class RssController extends Controller {
         $rss['description'] = $item['description'];
         $rss['link'] = $item['link'];
         $rss['pubDate'] = date('Y-m-d H:i:s', strtotime($item['pubDate']));
-        \App\RssPost::create($rss);
+        \App\Models\Feeds::create($rss);
 
         \DB::table('rss_channels')->where('id', $channel->id)->update(['last_update_date' => date('Y-m-d H:i:s')]);
     }

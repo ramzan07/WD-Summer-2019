@@ -76,7 +76,7 @@ class ProviderController extends Controller {
         $rss['description'] = $item['description'];
         $rss['link']        = $item['link'];
         $rss['pubDate']     = date('Y-m-d H:i:s', strtotime($item['pubDate']));
-        \App\RssPost::create($rss);
+        \App\Models\Feeds::create($rss);
     }
 
     /**
@@ -90,7 +90,7 @@ class ProviderController extends Controller {
         $id     = $request->input('id');
         $status = $request->input('status');
 
-        $provider=\App\RssChannel::where('id',$id)->first();
+        $provider= \App\Models\Provider::where('id',$id)->first();
         $provider->status = $status;
         $provider->save();
         return 'success';

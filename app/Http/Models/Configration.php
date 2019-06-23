@@ -1,24 +1,24 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RssPost extends Model {
+class Configration extends Model {
 
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'rss_posts';
+    protected $table = 'settings';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['channel_id', 'title', 'link', 'description', 'pubDate', 'image'];
+    protected $fillable = ['provider_id', 'type', 'time'];
 
     /**
      * Indicates if the model should be timestamped.

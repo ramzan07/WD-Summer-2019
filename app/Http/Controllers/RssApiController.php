@@ -46,9 +46,9 @@ class RssApiController  extends Controller {
 
         $request_params = Input::all();
         if (isset($request_params['provider_id'])) {
-            $providers = \App\RssChannel::where('id', $request_params['provider_id'])->get();
+            $providers = \App\Models\Provider::where('id', $request_params['provider_id'])->get();
         } else {
-            $providers = \App\RssChannel::all();
+            $providers = \App\Models\Provider::all();
         }
         return $this->jsonSuccessResponse('Process is processed success', $providers);
     }
