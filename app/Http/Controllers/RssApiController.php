@@ -15,7 +15,7 @@ class RssApiController  extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function getFeeds() {
 
         $request_params = Input::all();
 
@@ -32,9 +32,9 @@ class RssApiController  extends Controller {
             $rss;
         }
 
-        $feeds = $rss->get();
+        $posts = $rss->get();
 
-        return $this->jsonSuccessResponse('Process is processed success', $feeds);
+        return $this->jsonSuccessResponse('Process is processed success', $posts);
     }
 
     /**
@@ -42,15 +42,15 @@ class RssApiController  extends Controller {
      * responsible for getting channels
      * @return \Illuminate\Http\Response
      */
-    public function channels() {
+    public function getProviders() {
 
         $request_params = Input::all();
         if (isset($request_params['provider_id'])) {
-            $channels = \App\RssChannel::where('id', $request_params['provider_id'])->get();
+            $providers = \App\RssChannel::where('id', $request_params['provider_id'])->get();
         } else {
-            $channels = \App\RssChannel::all();
+            $providers = \App\RssChannel::all();
         }
-        return $this->jsonSuccessResponse('Process is processed success', $channels);
+        return $this->jsonSuccessResponse('Process is processed success', $providers);
     }
 
 }
