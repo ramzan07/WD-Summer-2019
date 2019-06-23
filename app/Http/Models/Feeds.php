@@ -11,7 +11,7 @@ class Feeds extends Model {
      *
      * @var string
      */
-    protected $table = 'rss_posts';
+    protected $table = 'feeds';
 
     /**
      * The attributes that are mass assignable.
