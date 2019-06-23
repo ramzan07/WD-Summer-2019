@@ -114,12 +114,6 @@
         <div class="col-sm-3">
             <input class="btn btn-primary form-group form-control" id="searchChannel"  type="submit" value="Search">
         </div>
-<!-- </form>
-<form action="{{route('refreshFeed')}}" method="GET">
-<div class="col-sm-3">
-    <input class="btn btn-primary form-group form-control"  type="submit" value="Refresh Feed &nbsp; &#8634;">
-</div>
-</form> -->
 @endsection
 
 @section('content')
