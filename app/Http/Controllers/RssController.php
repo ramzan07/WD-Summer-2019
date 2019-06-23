@@ -142,13 +142,13 @@ class RssController extends Controller {
         $request_params = Input::all();
 
         if (!empty($request_params) && isset($request_params['channel_id'])) {
-            $post = file_get_contents('http://localhost/wb-summar/api/feeds/get?id=' . $request_params['channel_id']);
+            $post = file_get_contents('http://localhost/wdb-newsfeed/api/feeds/get?provider_id=' . $request_params['channel_id']);
         } else {
-            $post = file_get_contents('http://localhost/wb-summar/api/feeds/get');
+            $post = file_get_contents('http://localhost/wdb-newsfeed/api/feeds/get');
         }
 
 
-        $channel = file_get_contents('http://localhost/wb-summar/api/feeds/channels');
+        $channel = file_get_contents('http://localhost/wdb-newsfeed/api/feeds/channels');
         $data['posts'] = json_decode($post, TRUE);
         $data['channels'] = json_decode($channel, TRUE);
         $feed_posts = $data['posts']['data'];
@@ -161,7 +161,8 @@ class RssController extends Controller {
     }
 
     public function show($id) {
-        $post = file_get_contents('http://localhost/wb-summar/api/feeds/get?post_id=' . $id);
+
+        $post = file_get_contents('http://localhost/wdb-newsfeed/api/feeds/get?post_id=' . $id);
 
         $data = json_decode($post , TRUE);
 

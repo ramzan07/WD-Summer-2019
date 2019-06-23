@@ -19,25 +19,20 @@ class RssApiController  extends Controller {
 
         $request_params = Input::all();
 
-        if (isset($request_params['id'])) {
+        $rss  = DB::table('rss_posts')->join('rss_channels', 'rss_channels.id', '=' , 'rss_posts.channel_id')
+            ->select('rss_posts.*', 'rss_channels.status', 'rss_channels.channel_name');
 
-            $feeds = DB::table('rss_posts')->join('rss_channels', 'rss_channels.id', '=' , 'rss_posts.channel_id')
-            ->select('rss_posts.*', 'rss_channels.status', 'rss_channels.channel_name')
-            ->where('channel_id', $request_params['id'])
-            ->get();
+        if (isset($request_params['provider_id'])) {
+
+            $rss->where('channel_id', $request_params['provider_id']);
         } elseif(isset($request_params['post_id'])){
 
-            $feeds = DB::table('rss_posts')->join('rss_channels', 'rss_channels.id', '=' , 'rss_posts.channel_id')
-            ->select('rss_posts.*', 'rss_channels.status', 'rss_channels.channel_name')
-            ->where('rss_posts.id', $request_params['post_id'])
-            ->get();
-
+            $rss->where('rss_posts.id', $request_params['post_id']);
         }else {
-            $feeds = DB::table('rss_posts')->join('rss_channels', 'rss_channels.id', '=' , 'rss_posts.channel_id')
-            ->select('rss_posts.*', 'rss_channels.status', 'rss_channels.channel_name')
-            ->get();
-
+            $rss;
         }
+
+        $feeds = $rss->get();
 
         return $this->jsonSuccessResponse('Process is processed success', $feeds);
     }
