@@ -39,7 +39,7 @@ class ProviderController extends Controller {
                          <tbody>
                         <tr>
                           <td><b>Adress Url</b></td>
-                          <td><a target= \"_blank\" href=\"{$feed_posts['channel_source']}\">{$feed_posts['channel_source']}</td>
+                          <td><a target= \"_blank\" href=\"{$feed_posts['feed_source']}\">{$feed_posts['feed_source']}</td>
                        </tr>
 
                         <tr>
@@ -71,7 +71,7 @@ class ProviderController extends Controller {
 
     public function createPost($item, $id) {
 
-        $rss['channel_id']  = $id;
+        $rss['provider_id'] = $id;
         $rss['title']       = $item['title'];
         $rss['description'] = $item['description'];
         $rss['link']        = $item['link'];

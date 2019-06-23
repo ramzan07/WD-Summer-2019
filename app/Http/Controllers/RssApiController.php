@@ -19,12 +19,12 @@ class RssApiController  extends Controller {
 
         $request_params = Input::all();
 
-        $rss  = DB::table('feeds')->join('providers', 'providers.id', '=' , 'feeds.channel_id')
-            ->select('feeds.*', 'providers.status', 'providers.channel_name');
+        $rss  = DB::table('feeds')->join('providers', 'providers.id', '=' , 'feeds.provider_id')
+            ->select('feeds.*', 'providers.status', 'providers.provider_name', 'providers.provider_link');
 
         if (isset($request_params['provider_id'])) {
 
-            $rss->where('channel_id', $request_params['provider_id']);
+            $rss->where('provider_id', $request_params['provider_id']);
         } elseif(isset($request_params['post_id'])){
 
             $rss->where('feeds.id', $request_params['post_id']);

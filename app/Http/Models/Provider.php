@@ -18,7 +18,7 @@ class Provider extends Model {
      *
      * @var array
      */
-    protected $fillable = ['channel_name', 'channel_source', 'channel_description', 'channel_image', 'last_attempt_date', 'last_update_date'];
+    protected $fillable = ['provider_name', 'feed_source', 'channel_description', 'channel_image', 'last_attempt_date', 'last_update_date'];
 
     /**
      * Indicates if the model should be timestamped.

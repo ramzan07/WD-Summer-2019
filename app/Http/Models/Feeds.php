@@ -18,7 +18,7 @@ class Feeds extends Model {
      *
      * @var array
      */
-    protected $fillable = ['channel_id', 'title', 'link', 'description', 'pubDate', 'image'];
+    protected $fillable = ['provider_id', 'title', 'link', 'description', 'pubDate', 'image'];
 
     /**
      * Indicates if the model should be timestamped.

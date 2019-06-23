@@ -34,7 +34,7 @@ class RssController extends Controller {
         }
 
         $channel = \DB::table('providers')->where('id', $provider_id)->first();
-        $xmlStr = file_get_contents($channel->channel_source);
+        $xmlStr = file_get_contents($channel->feed_source);
         $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);
         $json = json_encode($xml);
         $array = json_decode($json, TRUE);
@@ -107,7 +107,7 @@ class RssController extends Controller {
      */
     public function createPost($item, $channel) {
 
-        $rss['channel_id'] = $channel->id;
+        $rss['provider_id'] = $channel->id;
         $rss['title'] = $item['title'];
         $rss['description'] = $item['description'];
         $rss['link'] = $item['link'];

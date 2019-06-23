@@ -107,7 +107,7 @@
                     $provider = isset($_GET['channel_id']) ? $_GET['channel_id'] : '';
                     $val = isset($channel['id']) && $channel['id'] == $provider ? 'selected' : '';
                 @endphp
-                <option value="{{$channel['id']}}" {{$val}}>{{$channel['channel_name']}}</option>
+                <option value="{{$channel['id']}}" {{$val}}>{{$channel['provider_name']}}</option>
                 @endforeach
             </select>
         </div>
@@ -126,8 +126,8 @@
               <h1>{{$item['title']}}</h1>
             </div>
             <div class="post-info">
-                <span class="post-meta {{ (isset($item['status']) && $item['status'] == 0) ? 'not-allowed' : '' }}">Posted On {{ucfirst(date('Y-m-d H:i:s A', strtotime($item['pubDate'])))}}&nbsp;&nbsp;<a href="#" target="_blank" class="{{ (isset($item['status']) && $item['status'] == 0) ? 'not-active' : '' }}">{{$item['channel_name']}}</a></span>
-            </div>  
+                <span class="post-meta {{ (isset($item['status']) && $item['status'] == 0) ? 'not-allowed' : '' }}">Posted On {{ucfirst(date('Y-m-d H:i:s A', strtotime($item['pubDate'])))}}&nbsp;&nbsp;<a href="{{$item['provider_link']}}" target="_blank" class="{{ (isset($item['status']) && $item['status'] == 0) ? 'not-active' : '' }}">{{$item['provider_name']}}</a></span>
+            </div>
             <p>{{strip_tags($item['description'])}}</p>
 
             <p class="post-meta {{ (isset($item['status']) && $item['status'] == 0) ? 'not-allowed' : '' }}">Link :
