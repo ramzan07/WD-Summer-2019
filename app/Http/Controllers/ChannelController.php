@@ -39,23 +39,25 @@ class ChannelController extends Controller {
                         <table class=\"table table-bordered\">
                          <tbody>
                         <tr>
-                          <td><b>Skills</b></td>
+                          <td><b>Adress Url</b></td>
                           <td>HTML5 / CSS3 / JAVASCRIPT</td>
                        </tr>
 
                         <tr>
-                          <td><b>Duration</b></td>
+                          <td><b>Date of Last Update</b></td>
                           <td>{$id}</td>
                        </tr>
 
                         <tr>
-                          <td><b>Cost</b></td>
+                          <td><b>Date of Latest Record</b></td>
                           <td>$5000</td>
                        </tr>
 
                         <tr>
-                          <td><b>Url</b></td>
-                          <td><a href=\"http://www.uipasta.com\" title=\"uipasta\">Rolling</a></td>
+                          <td><b>Date of last attempt</b></td>";
+
+                          $last_update_attempt  = ucfirst(date('Y-m-d H:i:s A', strtotime($feed_posts['last_attempt_date'])));
+        $str .="<td>{$last_update_attempt}</td>
                        </tr>
 
                         <tr>

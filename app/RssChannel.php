@@ -18,7 +18,7 @@ class RssChannel extends Model {
      *
      * @var array
      */
-    protected $fillable = ['channel_name', 'channel_source', 'channel_description', 'channel_image'];
+    protected $fillable = ['channel_name', 'channel_source', 'channel_description', 'channel_image', 'last_attempt_date'];
 
     /**
      * Indicates if the model should be timestamped.

@@ -128,9 +128,9 @@
     <thead>
     <!-- <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
         <tr>
-            <th>Sr.</th>
-            <th>Name</th>
-            <th>Source</th>
+            <th class="text-center">Sr.</th>
+            <th class="text-center">Name</th>
+            <!-- <th>Source</th> -->
             <th class="text-center">Action</th>
         </tr>
     </thead>
@@ -138,7 +138,7 @@
             <tr>
                 <td style="width: 2px;">{{++$key}}</td>
                 <td>{{$channel['channel_name']}}</td>
-                <td><a>{{$channel['channel_source']}}</a></td>
+                <!-- <td><a>{{$channel['channel_source']}}</a></td> -->
                 <td class="text-center" style="width: 200px;"><a onclick="loadProvider({{$channel['id']}})" class='btn btn-info btn-xs' href="#"><span class="icon-eye"></span> View</a>
 
                 <a onclick="refreshFeeds({{$channel['id']}})" class='btn btn-info btn-xs' href="#"><span class="icon-refresh"></span> Refresh</a>

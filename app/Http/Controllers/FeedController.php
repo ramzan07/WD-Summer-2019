@@ -22,6 +22,9 @@ class FeedController extends Controller {
 
         $provider_id = request('provider_id');
 
+        /*lates request time*/
+        \DB::table('rss_channels')->where('id', $provider_id)->update(['last_attempt_date' => date('Y-m-d H:i:s')]);
+
         $settings = \DB::table('settings')->where('type', 'update')->where('provider_id', $provider_id)->first();
         $flag = $this->calculateTimeDiffToUpdate($settings->time);
 
