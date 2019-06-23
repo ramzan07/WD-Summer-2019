@@ -11,7 +11,7 @@ class Provider extends Model {
      *
      * @var string
      */
-    protected $table = 'rss_channels';
+    protected $table = 'providers';
 
     /**
      * The attributes that are mass assignable.

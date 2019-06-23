@@ -23,7 +23,7 @@ class RssController extends Controller {
         $provider_id = request('provider_id');
 
         /*lates request time*/
-        \DB::table('rss_channels')->where('id', $provider_id)->update(['last_attempt_date' => date('Y-m-d H:i:s')]);
+        \DB::table('providers')->where('id', $provider_id)->update(['last_attempt_date' => date('Y-m-d H:i:s')]);
 
         $settings = \DB::table('settings')->where('type', 'update')->where('provider_id', $provider_id)->first();
         $flag = $this->calculateTimeDiffToUpdate($settings->time);
@@ -33,7 +33,7 @@ class RssController extends Controller {
             return "time_issue";
         }
 
-        $channel = \DB::table('rss_channels')->where('id', $provider_id)->first();
+        $channel = \DB::table('providers')->where('id', $provider_id)->first();
         $xmlStr = file_get_contents($channel->channel_source);
         $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);
         $json = json_encode($xml);
@@ -114,7 +114,7 @@ class RssController extends Controller {
         $rss['pubDate'] = date('Y-m-d H:i:s', strtotime($item['pubDate']));
         \App\Models\Feeds::create($rss);
 
-        \DB::table('rss_channels')->where('id', $channel->id)->update(['last_update_date' => date('Y-m-d H:i:s')]);
+        \DB::table('providers')->where('id', $channel->id)->update(['last_update_date' => date('Y-m-d H:i:s')]);
     }
 
     /**

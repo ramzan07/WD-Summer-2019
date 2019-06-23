@@ -19,8 +19,8 @@ class RssApiController  extends Controller {
 
         $request_params = Input::all();
 
-        $rss  = DB::table('rss_posts')->join('rss_channels', 'rss_channels.id', '=' , 'rss_posts.channel_id')
-            ->select('rss_posts.*', 'rss_channels.status', 'rss_channels.channel_name');
+        $rss  = DB::table('rss_posts')->join('providers', 'providers.id', '=' , 'rss_posts.channel_id')
+            ->select('rss_posts.*', 'providers.status', 'providers.channel_name');
 
         if (isset($request_params['provider_id'])) {
 
