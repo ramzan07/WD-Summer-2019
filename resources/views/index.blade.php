@@ -101,7 +101,7 @@
 
         <div class="col-sm-6">
             <select name="channel_id" id="channel" class="form-control" id="exampleFormControlSelect1">
-                <option value="">Select a channel</option>
+                <option value="">Select a Provider</option>
                 @foreach($feed_channel as $channel)
                 @php
                     $provider = isset($_GET['channel_id']) ? $_GET['channel_id'] : '';
@@ -114,6 +114,10 @@
         <div class="col-sm-3">
             <input class="btn btn-primary form-group form-control" id="searchChannel"  type="submit" value="Search">
         </div>
+        <div class="col-sm-3">
+    <input class="btn btn-primary form-group form-control"  type="submit" value="Refresh Feed &nbsp; &#8634;">
+</div>
+</form>
 @endsection
 
 @section('content')
@@ -146,7 +150,7 @@
     @endforeach
     @else
     <div class="alert alert-warning">
-        <strong>Warning!</strong> No Rss Record found
+        <center><strong>Warning!</strong> No Rss Record found</center>
     </div>
     @endif
     @if(!empty($feed_posts))
