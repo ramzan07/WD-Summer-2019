@@ -142,13 +142,13 @@ class RssController extends Controller {
         $request_params = Input::all();
 
         if (!empty($request_params) && isset($request_params['channel_id'])) {
-            $post = file_get_contents('http://localhost/wdb-newsfeed/api/feeds/get?provider_id=' . $request_params['channel_id']);
+            $post = file_get_contents('http://localhost/wdb-newsfeed/api/rssfeeds?provider_id=' . $request_params['channel_id']);
         } else {
-            $post = file_get_contents('http://localhost/wdb-newsfeed/api/feeds/get');
+            $post = file_get_contents('http://localhost/wdb-newsfeed/api/rssfeeds');
         }
 
 
-        $channel = file_get_contents('http://localhost/wdb-newsfeed/api/feeds/channels');
+        $channel = file_get_contents('http://localhost/wdb-newsfeed/api/rssproviders');
         $data['posts'] = json_decode($post, TRUE);
         $data['channels'] = json_decode($channel, TRUE);
         $feed_posts = $data['posts']['data'];
@@ -162,7 +162,7 @@ class RssController extends Controller {
 
     public function show($id) {
 
-        $post = file_get_contents('http://localhost/wdb-newsfeed/api/feeds/get?post_id=' . $id);
+        $post = file_get_contents('http://localhost/wdb-newsfeed/api/rssfeeds?post_id=' . $id);
 
         $data = json_decode($post , TRUE);
 
@@ -187,6 +187,8 @@ class RssController extends Controller {
                         </p>";
         $posted_date = date('Y-m-d H:i:s a', strtotime($feed_posts['pubDate']));
         $str .="<p class=\"post-meta\">Posted on {$posted_date}
+                        </p>";
+        $str .="<p class=\"post-meta\">Created at 2019-06-23 21:59:29 pm
                         </p>";
 
         return $str;

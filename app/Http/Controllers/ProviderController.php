@@ -14,7 +14,7 @@ class ProviderController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $channel = file_get_contents('http://localhost/wdb-newsfeed/api/feeds/channels');
+        $channel = file_get_contents('http://localhost/wdb-newsfeed/api/rssproviders');
         $data['channels'] = json_decode($channel, TRUE);
 
         $feed_channel = $data['channels']['data'];
@@ -28,7 +28,7 @@ class ProviderController extends Controller {
      */
     public function viewProvider(Request $request) {
         $id     = request('provider_id');
-        $channel = file_get_contents('http://localhost/wdb-newsfeed/api/feeds/channels?provider_id=' . $id);
+        $channel = file_get_contents('http://localhost/wdb-newsfeed/api/rssproviders?provider_id=' . $id);
         $data = json_decode($channel, TRUE);
         $feed_posts = $data['data'][0];
         $str = '';
@@ -50,7 +50,7 @@ class ProviderController extends Controller {
 
                         <tr>
                           <td><b>Date of Latest Record</b></td>
-                          <td>$5000</td>
+                          <td>2019-06-23 21:59:30 PM</td>
                        </tr>
 
                         <tr>
