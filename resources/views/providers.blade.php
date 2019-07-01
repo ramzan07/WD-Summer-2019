@@ -47,8 +47,8 @@
             success: function(result) {
                 if(result == 'time_issue') {
                     $('#msg').show();
-                    $('#msg-text').html('Request time is too short');
-                    $('#msg').removeClass('display-hide').addClass('alert alert-danger display-show');
+                    $('#msg-text').html('Request time is too short (Waiting time is 10 minutes)');
+                    $('#msg').removeClass('display-hide').addClass('alert alert-warning display-show');
                 }else{
                     $('#msg').show();
                     $('#msg-text').html('success updated');
@@ -104,14 +104,14 @@
 <div class="my-detail col"  style="margin-bottom: 0px;">
     <div class="white-spacing">
       <i class="fa fa-code fa-2x"></i>
-      <h1 class="timer count-title count-number" data-to="100" data-speed="1500"></h2>
+      <h1 class="timer count-title count-number" data-to="5" data-speed="1500"></h2>
       <h1>News Count</h1>
     </div>
       </div>
 <div class="my-detail col"  style="margin-bottom: 0px;">
     <div class="white-spacing">
       <i class="fa fa-code fa-2x"></i>
-      <h1 class="timer count-title count-number" data-to="200" data-speed="1500"></h2>
+      <h1 class="timer count-title count-number" data-to="205" data-speed="1500"></h2>
       <h1>News Count</h1>
     </div>
 </div>
@@ -161,7 +161,7 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 
                     </button>
-                     <h4 class="modal-title" id="myModalLabel">Post Details</h4>
+                     <h4 class="modal-title" id="myModalLabel">Provider Details</h4>
 
                 </div>
                 <div class="modal-body"><div id ="tbody-data"></div></div>
