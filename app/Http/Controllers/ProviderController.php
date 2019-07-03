@@ -18,7 +18,17 @@ class ProviderController extends Controller {
         $data['channels'] = json_decode($channel, TRUE);
 
         $feed_channel = $data['channels']['data'];
-        return view('providers', compact('feed_channel'));
+
+        $post = file_get_contents('http://localhost/wdb-newsfeed/api/rssfeeds');
+        $channel = file_get_contents('http://localhost/wdb-newsfeed/api/rssproviders');
+        $data['posts'] = json_decode($post, TRUE);
+        $data['channels'] = json_decode($channel, TRUE);
+        $feed_posts = $data['posts']['data'];
+        $feed_channel = $data['channels']['data'];
+
+        $postsCount = count($feed_posts);
+        $providersCount = count($feed_channel);
+        return view('providers', compact('feed_channel', 'postsCount', 'providersCount'));
     }
 
     /**
