@@ -15,6 +15,7 @@
 Route::get('/{channel_id?}', 'RssController@index')->name('home');
 
 Route::get('feed/refresh', 'RssController@refresh')->name('refreshFeed');
+Route::get('feeds/refreshAll', 'RssController@refreshAll')->name('refreshAllFeeds');
 
 Route::get('feed/post/{id}', 'RssController@show')->name('postDetails');
 

@@ -194,4 +194,52 @@ class RssController extends Controller {
         return $str;
     }
 
+    public function refreshAll() {
+
+        $settings = \DB::table('settings')->where('type', 'update')->first();
+        $flag = $this->calculateTimeDiffToUpdate($settings->time);
+
+        if (!$flag) {
+            return "time_issue";
+        }
+        $channels = \App\Models\Provider::all();
+
+        foreach ($channels as $channel) {
+            $xmlStr = file_get_contents($channel->feed_source);
+            $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);
+            $json = json_encode($xml);
+            $array = json_decode($json, TRUE);
+
+            $this->processAllRssFeed($array, $channel);
+        }
+        session()->flash('success_message', trans('Feeds SuccessFully Updated'));
+        return 'success';
+    }
+
+    /**
+     * processRssFeed method
+     * check record uniqueness
+     * save new record
+     * @param type $data
+     * @param type $channel
+     * @return type
+     */
+    public function processAllRssFeed($data, $channel) {
+
+        foreach ($data['channel']['item'] as $item) {
+            $post = \App\Models\Feeds::where('link', $item['link'])->first();
+            if (!empty($post)) {
+                $settings = \DB::table('settings')->where('type', 'delete')->first();
+                $time = $this->calculateTimeDiffToDelete($post->created_at);
+                if ($time > $settings->time) {
+                    $post->delete();
+                }
+            }
+            if (empty($post)) {
+                $this->createPost($item, $channel);
+            }
+        }
+        $settings = \DB::table('settings')->where('type', 'update')->where('id', 1)->update(['time' => date('Y-m-d H:i:s')]);
+    }
+
 }

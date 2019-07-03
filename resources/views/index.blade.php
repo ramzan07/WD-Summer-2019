@@ -50,6 +50,38 @@
 </script>
 
 <script type="text/javascript">
+    function refreshAll()
+    {
+        $('#msg').show();
+        $('#msg-text').html('Request is pending');
+        $('#msg').removeClass('display-hide').addClass('alert alert-warning display-show');
+        $.ajax({
+            url: '{{route('refreshAllFeeds')}}',
+            type: "GET",
+            data: {
+                'refreshType': 'all',
+            },
+            success: function(result) {
+                if(result == 'time_issue') {
+                    $('#msg').show();
+                    $('#msg-text').html('Request time is too short (Waiting time is 10 minutes)');
+                    $('#msg').removeClass('display-hide').addClass('alert alert-warning display-show');
+                }else{
+                    /*$('#msg').show();
+                    $('#msg-text').html('success updated');
+                    $('#msg').removeClass('alert alert-danger display-show');
+                    $('#msg').removeClass('display-hide').addClass('alert alert-success display-show');*/
+                    window.location.href = '{{route('home')}}';
+                }
+                setTimeout(function() {
+                        $('#msg').fadeOut('slow');
+                    }, 2000);
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
     setTimeout(function() {
     $('#message').fadeOut('slow');
 }, 3000); // <-- time in milliseconds
@@ -97,6 +129,11 @@
         <strong>Danger!</strong> {{Session::get('error_message')}}
     </div>
 @endif
+
+<div id="msg" class="display-hide">
+    <center><span id='msg-text'><span></center>
+</div>
+
 <form action="{{route('home')}}" method="GET">
 
         <div class="col-sm-6">
@@ -115,8 +152,8 @@
             <input class="btn btn-primary form-group form-control" id="searchChannel"  type="submit" value="Search">
         </div>
         <div class="col-sm-3">
-    <input class="btn btn-primary form-group form-control"  type="submit" value="Refresh Feed &nbsp; &#8634;">
-</div>
+                <input class="btn btn-primary form-group form-control" onclick="refreshAll()" value="Refresh Feed &nbsp; &#8634;">
+        </div>
 </form>
 @endsection
 
