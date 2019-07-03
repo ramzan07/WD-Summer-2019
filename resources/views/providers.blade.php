@@ -38,6 +38,9 @@
 <script type="text/javascript">
     function refreshFeeds(id)
     {
+        $('#msg').show();
+        $('#msg-text').html('Request is Pending');
+        $('#msg').removeClass('display-hide').addClass('alert alert-warning display-show');
         $.ajax({
             url: '{{route('refreshFeed')}}',
             type: "GET",
@@ -48,11 +51,12 @@
                 if(result == 'time_issue') {
                     $('#msg').show();
                     $('#msg-text').html('Request time is too short (Waiting time is 10 minutes)');
+                    $('#msg').removeClass('alert alert-success display-show');
                     $('#msg').removeClass('display-hide').addClass('alert alert-warning display-show');
                 }else{
                     $('#msg').show();
-                    $('#msg-text').html('success updated');
-                    $('#msg').removeClass('alert alert-danger display-show');
+                    $('#msg-text').html('Sussessfully updated');
+                    $('#msg').removeClass('alert alert-warning display-show');
                     $('#msg').removeClass('display-hide').addClass('alert alert-success display-show');
                 }
                 setTimeout(function() {
