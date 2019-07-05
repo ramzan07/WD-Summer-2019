@@ -187,7 +187,7 @@
     @endforeach
     @else
     <div class="alert alert-warning">
-        <center><strong>Warning!</strong> No Rss Record found</center>
+        <center><strong></strong> No News found</center>
     </div>
     @endif
     @if(!empty($feed_posts))

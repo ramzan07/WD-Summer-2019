@@ -34,12 +34,22 @@ class RssController extends Controller {
         }
 
         $channel = \DB::table('providers')->where('id', $provider_id)->first();
-        $xmlStr = file_get_contents($channel->feed_source);
-        $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);
-        $json = json_encode($xml);
-        $array = json_decode($json, TRUE);
+        if($channel->feed_type == 'atom'){
+            $xmlStr = file_get_contents($channel->feed_source);
+            $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);
+            $json = json_encode($xml);
+            $array = json_decode($json, TRUE);
+            $this->processAtomFeed($array, $channel);
 
-        $this->processRssFeed($array, $channel);
+        } else{
+
+            $xmlStr = file_get_contents($channel->feed_source);
+            $xml = simplexml_load_string($xmlStr, "SimpleXMLElement", LIBXML_NOCDATA);
+            $json = json_encode($xml);
+            $array = json_decode($json, TRUE);
+
+            $this->processRssFeed($array, $channel);
+        }
 
         return "success";
 
@@ -97,6 +107,59 @@ class RssController extends Controller {
         } else{
             $settings = \DB::table('settings')->where('type', 'update')->where('provider_id', $channel->id)->update(['time' => date('Y-m-d H:i:s')]);
         }
+    }
+
+    /**
+     * processRssFeed method
+     * check record uniqueness 
+     * save new record
+     * @param type $data
+     * @param type $channel
+     * @return type
+     */
+    public function processAtomFeed($data, $channel) {
+
+        foreach ($data['entry'] as $item) {
+            $post = \App\Models\Feeds::where('link', $item['id'])->first();
+            if (!empty($post)) {
+                $settings = \DB::table('settings')->where('type', 'delete')->first();
+                $time = $this->calculateTimeDiffToDelete($post->created_at);
+                if ($time > $settings->time) {
+                    $post->delete();
+                }
+            }
+            if (empty($post)) {
+                $this->createAtomPost($item, $channel);
+            }
+        }
+
+        $updateSetting = \DB::table('settings')->where('type', 'update')->where('provider_id' , $channel->id)->first();
+        if(empty($updateSetting)){
+            $setting['provider_id'] = $channel->id;
+            $setting['type'] = 'update';
+            $setting['time'] = date('Y-m-d H:i:s');
+            \App\Models\Configration::create($setting);
+        } else{
+            $settings = \DB::table('settings')->where('type', 'update')->where('provider_id', $channel->id)->update(['time' => date('Y-m-d H:i:s')]);
+        }
+    }
+
+    /**
+     * createPost method
+     * responsible for creating post
+     * @param type $item
+     * @param type $channel
+     */
+    public function createAtomPost($item, $channel) {
+
+        $atom['provider_id'] = $channel->id;
+        $atom['title'] = $item['title'];
+        $atom['description'] = '';
+        $atom['link'] = $item['id'];
+        $atom['pubDate'] = date('Y-m-d H:i:s', strtotime($item['published']));
+        \App\Models\Feeds::create($atom);
+
+        \DB::table('providers')->where('id', $channel->id)->update(['last_update_date' => date('Y-m-d H:i:s')]);
     }
 
     /**
@@ -202,7 +265,7 @@ class RssController extends Controller {
         if (!$flag) {
             return "time_issue";
         }
-        $channels = \App\Models\Provider::all();
+        $channels = \App\Models\Provider::where('feed_type' , 'rss')->get();
 
         foreach ($channels as $channel) {
             $xmlStr = file_get_contents($channel->feed_source);
@@ -239,7 +302,8 @@ class RssController extends Controller {
                 $this->createPost($item, $channel);
             }
         }
-        $settings = \DB::table('settings')->where('type', 'update')->where('id', 1)->update(['time' => date('Y-m-d H:i:s')]);
+        \DB::table('settings')->where('type', 'update')->where('id', 1)->update(['time' => date('Y-m-d H:i:s')]);
+        \DB::table('settings')->where('type', 'update')->where('provider_id', $channel->id)->update(['time' => date('Y-m-d H:i:s')]);
     }
 
 }
