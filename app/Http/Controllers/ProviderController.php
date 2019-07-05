@@ -59,8 +59,9 @@ class ProviderController extends Controller {
                        </tr>
 
                         <tr>
-                          <td><b>Date of Latest Record</b></td>
-                          <td>2019-06-23 21:59:30 PM</td>
+                          <td><b>Date of Latest Record</b></td>";
+                          $latest_post_date  = ucfirst(date('Y-m-d H:i A', strtotime(isset($feed_posts['last_update_date']) ? $feed_posts['last_update_date'] : 'Not Found')));
+                          $str .="<td>{$latest_post_date}</td>
                        </tr>
 
                         <tr>
