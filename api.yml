@@ -1,0 +1,670 @@
+swagger: '2.0'
+info:
+  title: News Feeds
+  description: ''
+  version: 1.0.0
+host: 'localhost'
+basePath: /wdb-newsfeed/api
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+tags:
+  - name: feeds
+    description: ''
+  - name: providers
+    description: ''
+paths:
+  /rssfeeds:
+    get:
+      tags:
+        - feeds
+      summary: List
+      parameters:
+          []
+      responses:
+        '200':
+          description: An array of Feeds
+          schema:
+            type: object
+            properties:
+              feeds:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      x-dbtype: int
+                      x-nullable: false
+                      x-primary-key: true
+                    provider_id:
+                      type: integer
+                      x-dbtype: int
+                      x-nullable: false
+                      maxLength: 11
+                    title:
+                      type: string
+                      x-dbtype: varchar
+                      x-nullable: true
+                      maxLength: 255
+                    link:
+                      type: string
+                      x-dbtype: varchar
+                      x-nullable: true
+                      maxLength: 255
+                    description:
+                      type: string
+                      x-dbtype: text
+                      x-nullable: false
+                    created_at:
+                      type: string
+                      x-dbtype: datetime
+                      x-nullable: false
+                    updated_at:
+                      type: string
+                      x-dbtype: datetime
+                      x-nullable: false
+    post:
+      tags:
+        - feeds
+      summary: Create
+      parameters:
+        - name: feed_source
+          in: body
+          description: feeds to create.
+          required: true
+          schema:
+            type: object
+            required:
+              - id
+              - feed_source
+              - status
+            properties:
+              id:
+                type: integer
+                x-dbtype: int
+                x-nullable: false
+                x-primary-key: true
+              provider_id:
+                type: integer
+                x-dbtype: int
+                x-nullable: false
+                maxLength: 11
+              title:
+                type: string
+                x-dbtype: varchar
+                x-nullable: true
+                maxLength: 255
+              link:
+                type: string
+                x-dbtype: varchar
+                x-nullable: true
+                maxLength: 255
+              description:
+                type: string
+                x-dbtype: text
+                x-nullable: false
+              created_at:
+                type: string
+                x-dbtype: datetime
+                x-nullable: false
+              updated_at:
+                type: string
+                x-dbtype: datetime
+                x-nullable: false
+      responses:
+        '200':
+          description: Identifier of created item.
+          schema:
+            type: integer
+  '/rssfeeds/{id}':
+    get:
+      tags:
+        - feeds
+      summary: Read
+      parameters:
+        - name: id
+          in: path
+          description: Identifier for feed.
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: The requested item.
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                x-dbtype: int
+                x-nullable: false
+                x-primary-key: true
+              provider_id:
+                type: integer
+                x-dbtype: int
+                x-nullable: false
+                maxLength: 11
+              title:
+                type: string
+                x-dbtype: varchar
+                x-nullable: true
+                maxLength: 255
+              link:
+                type: string
+                x-dbtype: varchar
+                x-nullable: true
+                maxLength: 255
+              description:
+                type: string
+                x-dbtype: text
+                x-nullable: false
+              created_at:
+                type: string
+                x-dbtype: datetime
+                x-nullable: false
+              updated_at:
+                type: string
+                x-dbtype: datetime
+                x-nullable: false
+    put:
+      tags:
+        - feeds
+      summary: Update
+      parameters:
+        - name: id
+          in: path
+          description: Identifier for feed.
+          required: true
+          type: string
+        - name: provider_id
+          in: body
+          description: Properties of item to update.
+          required: true
+          schema:
+            type: object
+            required:
+              - id
+              - provider_id
+            properties:
+              id:
+                type: integer
+                x-dbtype: int
+                x-nullable: false
+                x-primary-key: true
+              provider_id:
+                type: integer
+                x-dbtype: int
+                x-nullable: false
+                maxLength: 11
+              title:
+                type: string
+                x-dbtype: varchar
+                x-nullable: true
+                maxLength: 255
+              link:
+                type: string
+                x-dbtype: varchar
+                x-nullable: true
+                maxLength: 255
+              description:
+                type: string
+                x-dbtype: text
+                x-nullable: false
+              created_at:
+                type: string
+                x-dbtype: datetime
+                x-nullable: false
+              updated_at:
+                type: string
+                x-dbtype: datetime
+                x-nullable: false
+      responses:
+        '200':
+          description: Number of affected rows.
+          schema:
+            type: integer
+    delete:
+      tags:
+        - feeds
+      summary: Delete
+      parameters:
+        - name: id
+          in: path
+          description: Identifier for feeds.
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Number of affected rows.
+          schema:
+            type: integer
+    patch:
+      tags:
+        - feeds
+      summary: Increment
+      parameters:
+        - name: id
+          in: path
+          description: Identifier for feeds.
+          required: true
+          type: string
+        - name: item
+          in: body
+          description: Properties of item to update.
+          required: true
+          schema:
+            type: object
+            required:
+              - id
+              - provider_id
+            properties:
+              id:
+                type: integer
+                x-dbtype: int
+                x-nullable: false
+                x-primary-key: true
+              provider_id:
+                type: integer
+                x-dbtype: int
+                x-nullable: false
+                maxLength: 11
+              title:
+                type: string
+                x-dbtype: varchar
+                x-nullable: true
+                maxLength: 255
+              link:
+                type: string
+                x-dbtype: varchar
+                x-nullable: true
+                maxLength: 255
+              description:
+                type: string
+                x-dbtype: text
+                x-nullable: false
+              created_at:
+                type: string
+                x-dbtype: datetime
+                x-nullable: false
+              updated_at:
+                type: string
+                x-dbtype: datetime
+                x-nullable: false
+      responses:
+        '200':
+          description: Number of affected rows.
+          schema:
+            type: integer
+  /rssproviders:
+    get:
+      tags:
+        - providers
+      summary: List
+      parameters:
+        []
+      responses:
+        '200':
+          description: An array of providers
+          schema:
+            type: object
+            properties:
+              providers:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      x-dbtype: int
+                      x-nullable: false
+                      x-primary-key: true
+                    provider_name:
+                      type: string
+                      x-dbtype: varchar
+                      x-nullable: true
+                      maxLength: 255
+                    feed_source:
+                      type: string
+                      x-dbtype: varchar
+                      x-nullable: false
+                      maxLength: 255
+                    provider_link:
+                      type: string
+                      x-dbtype: text
+                      x-nullable: false
+                      maxLength: 65535
+                    status:
+                      type: string
+                      x-dbtype: enum
+                      x-nullable: false
+                      maxLength: 1
+                    last_update_date:
+                      type: string
+                      x-dbtype: datetime
+                      x-nullable: false
+                      maxLength: 255
+                    last_record_date:
+                      type: string
+                      x-dbtype: datetime
+                      x-nullable: false
+                      maxLength: 255
+                    last_attempt_date:
+                      type: string
+                      x-dbtype: datetime
+                      x-nullable: false
+                      maxLength: 255
+                    created_at:
+                      type: string
+                      x-dbtype: datetime
+                      x-nullable: false
+                      maxLength: 255
+                    updated_at:
+                      type: string
+                      x-dbtype: datetime
+                      x-nullable: false
+                      maxLength: 255
+    post:
+      tags:
+        - providers
+      summary: Create
+      parameters:
+        - name: feed_source
+          in: body
+          description: provider to create.
+          required: true
+          schema:
+            type: object
+            required:
+              - id
+              - feed_source
+            properties:
+              id:
+                  type: integer
+                  x-dbtype: int
+                  x-nullable: false
+                  x-primary-key: true
+              provider_name:
+                  type: string
+                  x-dbtype: varchar
+                  x-nullable: true
+                  maxLength: 255
+              feed_source:
+                  type: string
+                  x-dbtype: varchar
+                  x-nullable: false
+                  maxLength: 255
+              provider_link:
+                  type: string
+                  x-dbtype: text
+                  x-nullable: false
+                  maxLength: 65535
+              status:
+                  type: string
+                  x-dbtype: enum
+                  x-nullable: false
+                  maxLength: 1
+              last_update_date:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+              last_record_date:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+              last_attempt_date:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+              created_at:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+              updated_at:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+      responses:
+        '200':
+          description: Identifier of created item.
+          schema:
+            type: integer
+  '/rssproviders/{id}':
+    get:
+      tags:
+        - providers
+      summary: Read
+      parameters:
+        - name: id
+          in: path
+          description: Identifier for provider.
+          required: true
+          type: string
+      responses:
+        '200':
+          description: The requested feeds.
+          schema:
+            type: object
+            properties:
+              id:
+                  type: integer
+                  x-dbtype: int
+                  x-nullable: false
+                  x-primary-key: true
+              provider_name:
+                  type: string
+                  x-dbtype: varchar
+                  x-nullable: true
+                  maxLength: 255
+              feed_source:
+                  type: string
+                  x-dbtype: varchar
+                  x-nullable: false
+                  maxLength: 255
+              provider_link:
+                  type: string
+                  x-dbtype: text
+                  x-nullable: false
+                  maxLength: 65535
+              status:
+                  type: string
+                  x-dbtype: enum
+                  x-nullable: false
+                  maxLength: 1
+              last_update_date:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+              last_record_date:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+              last_attempt_date:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+              created_at:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+              updated_at:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+    put:
+      tags:
+        - providers
+      summary: Update
+      parameters:
+        - name: id
+          in: path
+          description: Identifier for provider.
+          required: true
+          type: string
+        - name: item
+          in: body
+          description: Properties of provider to update.
+          required: true
+          schema:
+            type: object
+            required:
+              - id
+              - feed_source
+            properties:
+              id:
+                  type: integer
+                  x-dbtype: int
+                  x-nullable: false
+                  x-primary-key: true
+              provider_name:
+                  type: string
+                  x-dbtype: varchar
+                  x-nullable: true
+                  maxLength: 255
+              feed_source:
+                  type: string
+                  x-dbtype: varchar
+                  x-nullable: false
+                  maxLength: 255
+              provider_link:
+                  type: string
+                  x-dbtype: text
+                  x-nullable: false
+                  maxLength: 65535
+              status:
+                  type: string
+                  x-dbtype: enum
+                  x-nullable: false
+                  maxLength: 1
+              last_update_date:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+              last_record_date:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+              last_attempt_date:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+              created_at:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+              updated_at:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+      responses:
+        '200':
+          description: Number of affected rows.
+          schema:
+            type: integer
+    delete:
+      tags:
+        - providers
+      summary: Delete
+      parameters:
+        - name: id
+          in: path
+          description: Identifier for provider.
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Number of affected rows.
+          schema:
+            type: integer
+    patch:
+      tags:
+        - providers
+      summary: Increment
+      parameters:
+        - name: id
+          in: path
+          description: Identifier for item.
+          required: true
+          type: string
+        - name: item
+          in: body
+          description: Properties of item to update.
+          required: true
+          schema:
+            type: object
+            required:
+              - id
+              - feedsource
+            properties:
+              id:
+                  type: integer
+                  x-dbtype: int
+                  x-nullable: false
+                  x-primary-key: true
+              provider_name:
+                  type: string
+                  x-dbtype: varchar
+                  x-nullable: true
+                  maxLength: 255
+              feed_source:
+                  type: string
+                  x-dbtype: varchar
+                  x-nullable: false
+                  maxLength: 255
+              provider_link:
+                  type: string
+                  x-dbtype: text
+                  x-nullable: false
+                  maxLength: 65535
+              status:
+                  type: string
+                  x-dbtype: enum
+                  x-nullable: false
+                  maxLength: 1
+              last_update_date:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+              last_record_date:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+              last_attempt_date:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+              created_at:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+              updated_at:
+                  type: string
+                  x-dbtype: datetime
+                  x-nullable: false
+                  maxLength: 255
+      responses:
+        '200':
+          description: Number of affected rows.
+          schema:
+            type: integer
